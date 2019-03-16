@@ -1,7 +1,7 @@
 <?php 
     try {
-        $bdd = new PDO('mysql:host=localhost;dbname=sell_it;charset=utf8', 'root', '');
-        $req=$bdd->prepare('SELECT pseudo_member, admin FROM members WHERE pseudo_member = :pseudoReq AND pass_member = :passReq');
+        require_once("config.php");
+        $req=$bdd->prepare('SELECT id_member, pseudo_member, admin FROM members WHERE pseudo_member = :pseudoReq AND password = :passReq');
 
         if (isset($_POST['pseudo'])&&isset($_POST['pass'])){
             $pseudoEntre = $_POST['pseudo'];
@@ -13,6 +13,7 @@
             if ($result && $result['admin']==1){
                 session_start();
                 $_SESSION['pseudo'] = $pseudoEntre;
+                $_SESSION['id'] = $result['id_member'];
                 //header("Location : index.php");
                 echo '<script>document.location="/index.php"</script>';
                 exit;

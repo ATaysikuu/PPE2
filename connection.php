@@ -1,6 +1,6 @@
 <?php 
     try {
-        $bdd = new PDO('mysql:host=localhost;dbname=sell_it;charset=utf8', 'root', '');
+        require_once("./php/config.php");
         $req=$bdd->prepare('SELECT pseudo_member, admin FROM members WHERE pseudo_member = :pseudoReq AND pass_member = :passReq');
 
         $pseudoEntre = $_POST['pseudo'];

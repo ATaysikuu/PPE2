@@ -4,10 +4,8 @@
 </head>
 <?php
 
-$bdd = new PDO('mysql:host=localhost;dbname=sell_it;charset=utf8', 'root', '');
-
     try {
-        
+        require_once("./php/config.php");
         $req=$bdd->prepare('SELECT * FROM articles WHERE id_article = :id_art_Req');
         $idArticle = $_GET['article'];
         
@@ -16,6 +14,7 @@ $bdd = new PDO('mysql:host=localhost;dbname=sell_it;charset=utf8', 'root', '');
             $articleName = $result['name_article'];
             $articleDescription = $result['description_article'];
             $articlePrice = $result['price_article'];
+            $articleQuantity = $result['quantity_article'];
         }
     }
     catch (Exception $e){
@@ -23,9 +22,10 @@ $bdd = new PDO('mysql:host=localhost;dbname=sell_it;charset=utf8', 'root', '');
     }
 ?>
 
-<div class="product_name">
+<div class="product_info">
     <h3><?php echo($articleName);?></h3><br/>
     <h4><?php echo($articleDescription);?></h4><br/>
     <h4><?php echo($articlePrice);?></h4><br/>
+    <h4><?php echo($articleQuantity);?></h4><br/>
 </div>
 </html>

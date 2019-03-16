@@ -49,6 +49,7 @@
 	</div>
     <?php
         if (isset($_SESSION['pseudo'])){
+            echo($_SESSION['id']);
             echo($_SESSION['pseudo']);
             echo("
                 <div class='logoutbutton'>
