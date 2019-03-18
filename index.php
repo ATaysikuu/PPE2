@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 <html>
-
+<!-- a passer en local -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
 <meta name="viewport" content="width=320, initial-scale=1">
 
@@ -25,28 +25,12 @@
 	<link rel="stylesheet" type="text/css" href="Sell_IT_Accueil.css">
 	<script type="text/javascript" src="script.js"></script>
 </head>
-
-
-<style>
-
-
-
-</style>
-
+ <!-- a passer en local -->
+ 
+<?php require_once('./include/header.php'); ?>
 
 <body>
-	<div id="container0" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<div id="container1" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 "><!--Logo/Menu-->
-			<div class="menu">
-     			<img id="menu_img" src="menu_sell_IT.jpeg">
-   			</div>
-   		</div>
-   		<div id="container2" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ">
-    		<div class="logo">
-     			<img id="logo_img" src="logo_sell_IT.jpeg">
-   			</div>
-		</div>
-	</div>
+	
     <?php
         if (isset($_SESSION['pseudo'])){
             echo($_SESSION['id']);
@@ -67,5 +51,5 @@
     ?>
     <a href="product.php?article=2">test</a>
 </body>
-
+<?php require_once('./include/footer.php'); ?>
 </html>

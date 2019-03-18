@@ -1,3 +1,4 @@
+<?php require_once('./include/header.php'); ?>
 <?php 
     session_start();
     echo('
@@ -10,4 +11,4 @@
         <p> Pas encore inscrit? Cliquez <a href="/signup.php">ici</a></p>
     ');
 ?>
-
+<?php require_once('./include/footer.php'); ?>
