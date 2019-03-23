@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>page connexion client</title>
+	<title>page admin formation</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
@@ -10,17 +10,12 @@
 <?php require_once('./include/header.php') ?>
 <body>
 	<div class="container">
-		<div id="formation_list_buy">
-			<!-- php mettre la liste des formations achetees par le client -->
+		<h3><!-- PHP TCHOUUUU POUR LE NOM DE LA FORMATION ICIIII --></h3>
+		<div id="formation_content" class="row">
+			<!-- php TCHOU POUR METTRE LE CONTENU DE LA FORMATION  -->
+			
 		</div>
-
-		<div id="formation_category">
-			<!-- php mettre la liste des categories des formations -->
-		</div>
-
-		
-
 	</div>
 </body>
-<<?php require_once('./include/footer.php') ?>
+<?php require_once('./include/footer.php') ?>
 </html>
