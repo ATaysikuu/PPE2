@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title></title>
     </head>
+    <?php require_once('./include/header.php'); ?>
     <body>
         <?php
         echo('
@@ -24,4 +25,5 @@
     ');
         ?>
     </body>
+    <?php require_once('./include/footer.php'); ?>
 </html>

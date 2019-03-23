@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <head>
 </head>
+<?php require_once('./include/header.php'); ?>
 <?php
 
     try {
@@ -29,3 +30,4 @@
     <h4><?php echo($articleQuantity);?></h4><br/>
 </div>
 </html>
+<?php require_once('./include/footer.php'); ?>
