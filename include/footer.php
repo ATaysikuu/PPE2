@@ -2,9 +2,11 @@
 		<div id="footer" class="row"> <!-- On remet le menu dans le footer -->
 			<div class="col-md-6 menu-footer">
 				<ul>
-					<li>S'inscrire</li>
-					<li>Se connecter</li>
-					<li>Formations</li>
+					<li><a href="login.php">S'inscrire</a></li>
+					<li><a href="login.php">Se connecter</a></li>
+					<li><a href="formation">Formations</a></li>
+					<li><a href="basket.php">Panier</a></li>
+					<li><a href="contact.php">Contact</a></li>
 				</ul>
 			</div>
 			<!-- delimiter <div class="section"></div> -->

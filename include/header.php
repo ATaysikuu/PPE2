@@ -1,3 +1,4 @@
+<title><?php if (isset ($title)) { echo $title ;} else {echo 'Mon site';} ?></title>
 	<div class="container">
 		<div id="header">
 			<div class="logo">
@@ -6,9 +7,10 @@
 			<div id="menu">
 				<h2>MENU</h2>
 				<a href="login.php">S'inscrire</a>
-				<a href="">Se connecter</a>
-				<a href="">Formations</a>
-				<a href="">Panier</a>
+				<a href="login.php">Se connecter</a>
+				<a href="formation.php">Formations</a>
+				<a href="basket.php">Panier</a>
+				<a href="contact.php">Contact</a>
 				<!--<a href="">FAQ</a>
 				<a href="">A propos</a> optionnel -->
 			</div>

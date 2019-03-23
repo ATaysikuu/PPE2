@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>page connexion admin</title>
+	<title>page connexion professionnel</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
@@ -12,19 +12,19 @@
 	<div class="container">
 		<div id="formation_list">
 			<a href="formationlist.php"><button class="list_button">
-				<!-- php liste formation -->
+				
 			</button></a>
 		</div>
 
-		<div id="list_client">
-			<a href="clientlist.php"><button class="list_button">
-				<!-- php liste client -->
+		<div id="add_formation">
+			<a href="addmodify.php"><button class="list_button">
+			
 			</button></a>
 		</div>
 
-		<div id="list_pro">
-			<a href="prolist.php"><button class="list_button">
-				<!-- php liste des professionnels -->
+		<div id="modify_formation">
+			<a href="addmodify.php"><button class="list_button">
+			
 			</button></a>
 		</div>
 
