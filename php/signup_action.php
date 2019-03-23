@@ -1,14 +1,16 @@
 <?php
-$bdd = new PDO('mysql:host=localhost;dbname=sell_it;charset=utf8', 'root', '');
+//TODO: check for duplicate, salt+hash user pw
+require_once("config.php");
 try {
-    if (isset($_POST['fpseudo']) &&
-        isset($_POST['fname'])&&
-        isset($_POST['fsurname']) &&
-        isset($_POST['fpass'])&&
-        isset($_POST['fresidence']) &&
-        isset($_POST['fzipcode'])&&
-        isset($_POST['fcity'])){
+    if (isset($_POST['fpseudo']) && //user pseudo
+        isset($_POST['fname'])&& //user name
+        isset($_POST['fsurname']) && //user surname
+        isset($_POST['fpass'])&& //user password
+        isset($_POST['fresidence']) && //user address
+        isset($_POST['fzipcode'])&& //user zipcode
+        isset($_POST['fcity'])){ //user city
         
+        //array containing all the data the user has entered in the form
         $insertData = [
             'pseudo'=>$_POST['fpseudo'],
             'pass'=>$_POST['fname'],
@@ -19,9 +21,9 @@ try {
             'city'=>$_POST['fcity'],
             'admin'=>0
         ];
-            
+            //prepare the request that will insert the new user in the database
             $req=$bdd->prepare('INSERT INTO `members` (`pseudo_member`, `pass_member`, `name`, `surname`, `residence`, `zipcode`, `city`, `admin`) VALUES (:pseudo,:pass,:name,:surname,:residence,:zipcode,:city,:admin)');
-            
+            //execute the request with the array
             $req->execute($insertData);
     }
     

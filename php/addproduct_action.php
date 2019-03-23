@@ -1,23 +1,23 @@
 <?php
+session_start(); //creating session
 try {
-    if (isset($_POST['fname']) &&
-        isset($_POST['fcateg'])&&
-        isset($_POST['fdescription']) &&
-        isset($_POST['fprice']) &&
-        isset($POST['fquantity'])){
+    /** check if the requested variables are set or not. if not, skip. */
+    if (isset($_POST['fname']) && //name of the course
+        isset($_POST['fcateg'])&& //category of the course
+        isset($_POST['fdescription']) && //description of the course
+        isset($_POST['fprice'])){ //well, price of the bloody course
         
-        require_once("config.php");
-        //get seller id
-        //$reqGetIDSeller=$bdd->prepare('SELECT id FROM members WHERE pseudo_member = :pseudo');
-        //get category id
+        require_once("config.php"); //get config file with db info
+        //prepare request to get category id.
         $reqGetIDCateg=$bdd->prepare('SELECT id FROM categories WHERE name_category = :categ');
-        //main request
+        //main request. Prepare the sql command. 
         $req=$bdd->prepare('INSERT INTO `articles` (`id_seller`, `id_category`, `date_article`, `name_article`, `price_article`, `quantity_article`, `description_article`) VALUES (:idseller,:idcateg,:date,:name,:price,:quantity,:desc)');
-
+        
+        //execute request and get category id given its name.
         $resultIDCateg = $reqGetIDCateg->execute($_POST['fcateg']);
-        //$IDSeller = $resultIDSeller['id'];
         $IDCateg = $resultIDCateg['id'];
 
+        //create array with data to insert in our main request.
         $insertData = [
             'idseller'=> $_SESSION['id'],
             'idcateg'=>$IDCateg,
@@ -28,6 +28,7 @@ try {
             'desc'=>$_POST['fdescription']
         ];
         
+        //execute the insert request with the array
         $req->execute($insertData);
     }
     
