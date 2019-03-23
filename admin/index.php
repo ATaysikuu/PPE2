@@ -27,7 +27,6 @@
 				<!-- php liste des professionnels -->
 			</button></a>
 		</div>
-
 	</div>
 </body>
 <?php require_once('./include/footer.php') ?>

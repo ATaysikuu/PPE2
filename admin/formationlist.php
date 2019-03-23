@@ -19,27 +19,27 @@
 					<?php
 						require_once("../php/config.php");
 						$req=$bdd->query('SELECT name_article, description_article FROM articles WHERE validation="0"'); //get all waiting courses
+					?>
+					<table>
+						<tr>
+							<td>NOM</td>
+							<td>DESCRIPTION</td>
+							<td>VALIDER</td>
+							<td>REFUSER</td>
+						<tr>
+						<?php
+							while($result=$req->fetch()){ //for each course in the returned array, print its name in html + buttons to accept or refuse course
 						?>
-						<table>
-							<tr>
-								<td>NOM</td>
-								<td>DESCRIPTION</td>
-								<td>VALIDER</td>
-								<td>REFUSER</td>
-							<tr>
-							<?php
-								while($result=$req->fetch()){ //for each course in the returned array, print its name in html + buttons to accept or refuse course
-							?>
-							<tr>
-								<td><?php echo ($result['name_article']);?></td>
-								<td><?php echo ($result['description_article']);?></td>
-								<td><?php echo ('<button name="validate" class="button"></button> <!-- bouton valider -->');?></td>
-								<td><?php echo ('<button name="refuse" class="button"></button><!-- bouton refuser -->');?></td>
-							</tr>
-							<?php
-                        		}
-							?>
-						</table>
+						<tr>
+							<td><?php echo ($result['name_article']);?></td>
+							<td><?php echo ($result['description_article']);?></td>
+							<td><?php echo ('<button name="validate" class="button"></button> <!-- bouton valider -->');?></td>
+							<td><?php echo ('<button name="refuse" class="button"></button><!-- bouton refuser -->');?></td>
+						</tr>
+						<?php
+							}
+						?>
+					</table>
 				</ul>
 			</div>
 	
