@@ -9,9 +9,12 @@
 </head>
 <?php require_once('../include/header.php') ?>
 <body>
+	<?php include '../php/config.php' ?>
+	
 	<div class="container">
-		<h3>Liste des formations</h3>
-		<div id="listformation_validation" class="row">
+		<div class="wrapper">
+			<h2>Liste des formations</h2>
+			<div id="listformation_validation" class="row">
 			
 			<div class="formationlist col-md-6">
 				<ul>
@@ -33,8 +36,8 @@
 						<tr>
 							<td><?php echo ($result['name_article']);?></td>
 							<td><?php echo ($result['description_article']);?></td>
-							<td><?php echo ('<a href="/php/validationformation.php?id='.$result["id_article"].'&action=ok">VALIDER</a> <!-- bouton valider -->');?></td>
-							<td><?php echo ('<a href="/php/validationformation.php?id='.$result["id_article"].'&action=no">REFUSER</a><!-- bouton refuser -->');?></td>
+							<td><?php echo ('<a href="/php/validationformation.php?id='.$result["id_article"].'&action=ok"><input type="button" name="ok" class="button" value="Valider"></a> <!-- bouton valider -->');?></td>
+							<td><?php echo ('<a href="/php/validationformation.php?id='.$result["id_article"].'&action=no"><input type="button" name="no" class="button" value="Refuser"></a><!-- bouton refuser -->');?></td>
 						</tr>
 						<?php
 							}
@@ -42,13 +45,12 @@
 					</table>
 				</ul>
 			</div>
-	
 			<div class="formationlist col-md-6">
 				<ul>
 					<!-- PHP TCHOUUUUUUUUUUUUUUU ICI STP liste des formations deja valider --->
 					<?php
 						require_once("../php/config.php");
-						$req=$bdd->query('SELECT name_article, description_article FROM articles WHERE validation="1"'); //get all courses
+						$req=$bdd->query('SELECT id_article, name_article, description_article FROM articles WHERE validation="1"'); //get all courses
 						?>
 						<table>
 							<tr>
@@ -64,9 +66,9 @@
 							<tr>
 								<td><?php echo ($result['name_article']);?></td>
 								<td><?php echo ($result['description_article']);?></td>
-								<td><?php echo ('<button name="modify" class="button"></button><!-- bouton modifier une formation -->');?></td>
-								<td><?php echo ('<button name="delete" class="button"></button><!-- bouton supprimer -->');?></td>
-								<td><?php echo ('<button name="checkcontent" class="button"></button><!-- bouton voir le contenu -->');?></td>
+								<td><?php echo ('<a href="/admin/formation.php?id='.$result["id_article"].'&action=edit"><input type="button" name="edit" class="button" value="Modifier"><!-- bouton modifier une formation -->');?></td>
+								<td><?php echo ('<a href="/admin/formation.php?id='.$result["id_article"].'&action=del"><input type="button" name="del" class="button" value="Supprimer"><!-- bouton supprimer -->');?></td>
+								<td><?php echo ('<a href="/formation.php?id='.$result["id_article"].'"><input type="button" name="consult" class="button" value="Consulter"><!-- bouton voir le contenu -->');?></td>
 							</tr>
 							<?php
 								}

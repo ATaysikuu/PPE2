@@ -10,6 +10,7 @@
 </head>
 <?php require_once('../include/header.php') ?>
 <body>
+	<?php include '../php/config.php' ?>
 	<div class="container">
 		<h3>
 			<?php //get course's name

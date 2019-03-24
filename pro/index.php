@@ -4,31 +4,35 @@
 <head>
 	<title>page connexion professionnel</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="./css/style.css">
-	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 </head>
-<?php require_once('./include/header.php') ?>
+<?php require_once('../include/header.php') ?>
 <body>
+	<?php require_once('../php/config.php') ?>
 	<div class="container">
-		<div id="formation_list">
-			<a href="formationlist.php"><button class="list_button">
+		<div class="wrapper">
+				<h2>Page Professionnel</h2>
+				<span id="formation_list">
+					<a href="formationlist.php" target="_blank">
+						<input type="button" class="list_button" name="listformation" value="Liste des formations">
+					</a>
+				</span>
+
+				<span id="add_formation">
+					<a href="addmodify.php" target="_blank">
+						<input type="button" class="list_button" name="addformation" value="Ajouter une formation">
+					</a>
+				</span>
+
+				<span id="modify_formation">
+					<a href="addmodify.php" target="_blank">
+						<input type="button" class="list_button" name="modifyformation" value="Modifier la formation">
 				
-			</button></a>
-		</div>
-
-		<div id="add_formation">
-			<a href="addmodify.php"><button class="list_button">
-			
-			</button></a>
-		</div>
-
-		<div id="modify_formation">
-			<a href="addmodify.php"><button class="list_button">
-			
-			</button></a>
-		</div>
-
+					</a>
+				</span>
+		</div> <!-- wrapper -->
 	</div>
 </body>
-<?php require_once('./include/footer.php') ?>
+<?php require_once('../include/footer.php') ?>
 </html>

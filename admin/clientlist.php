@@ -10,14 +10,13 @@
 </head>
 <?php require_once('../include/header.php') ?>
 <body>
+	<?php include '../php/config.php' ?>
 	<div class="container">
-		<h3>Liste des clients</h3>
-		<div id="listclient_manage" class="row">
+		<div class="wrapper">
+			<h2>Liste des clients</h2>
+			<div id="listclient_manage" class="row">
 			
-			<div class="clientlist col-md-6">
-				<button name="modify" class="button"></button><!-- bouton modifier -->
-				<button name="delete" class="button"></button><!-- bouton supprimer -->
-				<ul>
+				<div class="clientlist col-md-6">					
 					<!-- PHP TCHOUUUUUUUUUUUUUUU ICI STP liste des clients admin = 2 --->
 					<?php
 						require_once("../php/config.php");
@@ -37,7 +36,8 @@
 							<td><?php echo ($result['pseudo_member']);?></td>
 							<td><?php echo ($result['firstName_member']);?></td>
 							<td><?php echo ($result['lastName_member']);?></td>
-							<td><?php echo ('<a href="/php/usermanagement.php?uid='.$result["id_member"].'&action=del">SUPPRIMER</a><!-- bouton suppression client -->');?></td>
+							<td><?php echo ('<a href="/php/usermanagement.php?uid='.$result["id_member"].'&action=del"><input type="button" name="delete" class="button" value="Supprimer"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?></td>
+							<td><?php echo ('<a href=""><input type="button" name="delete" class="button" value="Modifier"><!-- bouton edition --></a><!-- bouton edition client -->');?></td>
 						</tr>
 						<?php
 							}
@@ -48,5 +48,5 @@
 		</div>
 	</div>
 </body>
-<?php require_once('../include/footer.php'); ?>
+<?php require_once('../include/footer.php') ?>
 </html>

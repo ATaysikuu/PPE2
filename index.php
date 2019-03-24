@@ -1,4 +1,5 @@
 <?php session_start();?>
+<?php include_once './php/config.php'; ?>
 <!DOCTYPE html>
 
 <html>
@@ -24,6 +25,7 @@
 	<title>Sell_IT_Accueil</title>
 	<link rel="stylesheet" type="text/css" href="Sell_IT_Accueil.css">
 	<script type="text/javascript" src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
  <!-- a passer en local -->
  

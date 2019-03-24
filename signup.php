@@ -1,8 +1,9 @@
 <?php session_start(); ?>
+<?php include './php/config.php' ?>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>S'inscrire</title>
     </head>
     <?php require_once('./include/header.php'); ?>
     <body>

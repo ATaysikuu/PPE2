@@ -1,4 +1,5 @@
 <?php session_start() ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,19 +10,19 @@
 </head>
 <?php require_once('../include/header.php') ?>
 <body>
-	<div class="container">
+	<?php include '../php/config.php' ?>
 
-		<h3>Liste des professionnels</h3>
-		<div id="listpro_manage" class="row">
+	<div class="container">
+		<div class="wrapper">
+			<h2>Liste des professionnels</h2>
+			<div id="listpro_manage" class="row">
 			
 			<div class="prolist col-md-6">
-				<button name="modify" class="button"></button><!-- bouton modifier -->
-				<button name="delete" class="button"></button><!-- bouton supprimer -->
 				<ul>
 					<!-- PHP TCHOUUUUUUUUUUUUUUU ICI STP LISTE DES PROFESSIONNELS --->
 					<?php
 						require_once("../php/config.php");
-						$req=$bdd->query('SELECT pseudo_member, firstName_member, lastName_member FROM members WHERE admin="0"'); //get all clients
+						$req=$bdd->query('SELECT id_member, pseudo_member, firstName_member, lastName_member FROM members WHERE admin="0"'); //get all clients
 					?>
 					<table>
 						<tr>
@@ -37,7 +38,8 @@
 							<td><?php echo ($result['pseudo_member']);?></td>
 							<td><?php echo ($result['firstName_member']);?></td>
 							<td><?php echo ($result['lastName_member']);?></td>
-							<td><?php echo ('<button name="delete_user" class="button"></button><!-- bouton suppression client -->');?></td>
+							<td><?php echo ('<a href="/php/usermanagement.php?uid='.$result["id_member"].'&action=del"><input type="button" name="delete" class="button" value="Supprimer"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?></td>
+							<td><?php echo ('<a href=""><input type="button" name="delete" class="button" value="Modifier"><!-- bouton edition --></a><!-- bouton edition client -->');?></td>
 						</tr>
 						<?php
 							}
@@ -46,7 +48,6 @@
 				</ul>
 			</div>
 		</div>
-
 	</div>
 </body>
 <?php require_once('../include/footer.php') ?>
