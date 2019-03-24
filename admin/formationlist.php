@@ -4,8 +4,8 @@
 <head>
 	<title>page admin liste formation</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="./css/style.css">
-	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 </head>
 <?php require_once('../include/header.php') ?>
 <body>
@@ -18,7 +18,7 @@
 					<!-- PHP TCHOUUUUUUUUUUUUUUU ICI STP pour valider ou refuser une formation --->
 					<?php
 						require_once("../php/config.php");
-						$req=$bdd->query('SELECT name_article, description_article FROM articles WHERE validation="0"'); //get all waiting courses
+						$req=$bdd->query('SELECT id_article, name_article, description_article FROM articles WHERE validation="0"'); //get all waiting courses
 					?>
 					<table>
 						<tr>
@@ -33,8 +33,8 @@
 						<tr>
 							<td><?php echo ($result['name_article']);?></td>
 							<td><?php echo ($result['description_article']);?></td>
-							<td><?php echo ('<button name="validate" class="button"></button> <!-- bouton valider -->');?></td>
-							<td><?php echo ('<button name="refuse" class="button"></button><!-- bouton refuser -->');?></td>
+							<td><?php echo ('<a href="/php/validationformation.php?id='.$result["id_article"].'&action=ok">VALIDER</a> <!-- bouton valider -->');?></td>
+							<td><?php echo ('<a href="/php/validationformation.php?id='.$result["id_article"].'&action=no">REFUSER</a><!-- bouton refuser -->');?></td>
 						</tr>
 						<?php
 							}
@@ -66,7 +66,7 @@
 								<td><?php echo ($result['description_article']);?></td>
 								<td><?php echo ('<button name="modify" class="button"></button><!-- bouton modifier une formation -->');?></td>
 								<td><?php echo ('<button name="delete" class="button"></button><!-- bouton supprimer -->');?></td>
-								<td><?php echo ('<button name="checkcontent" class="button"></button><!-- 	bouton voir le contenu -->');?></td>
+								<td><?php echo ('<button name="checkcontent" class="button"></button><!-- bouton voir le contenu -->');?></td>
 							</tr>
 							<?php
 								}

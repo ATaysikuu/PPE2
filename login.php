@@ -1,7 +1,6 @@
 <?php session_start() ?>
 <?php require_once('./include/header.php'); ?>
 <?php 
-    session_start();
     echo('
         <form id="connectionForm" action="/php/login_action.php" method=POST>
             <input type="text" id="fid" name="pseudo" placeholder="pseudo">

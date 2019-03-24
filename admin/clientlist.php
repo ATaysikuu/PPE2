@@ -1,11 +1,12 @@
-<?php session_start() ?>
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<title>page admin liste clients</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="./css/style.css">
-	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 </head>
 <?php require_once('../include/header.php') ?>
 <body>
@@ -20,7 +21,7 @@
 					<!-- PHP TCHOUUUUUUUUUUUUUUU ICI STP liste des clients admin = 2 --->
 					<?php
 						require_once("../php/config.php");
-						$req=$bdd->query('SELECT pseudo_member, firstName_member, lastName_member FROM members WHERE admin="2"'); //get all clients
+						$req=$bdd->query('SELECT id_member, pseudo_member, firstName_member, lastName_member FROM members WHERE admin="2"'); //get all clients
 					?>
 					<table>
 						<tr>
@@ -36,7 +37,7 @@
 							<td><?php echo ($result['pseudo_member']);?></td>
 							<td><?php echo ($result['firstName_member']);?></td>
 							<td><?php echo ($result['lastName_member']);?></td>
-							<td><?php echo ('<button name="delete_user" class="button"></button><!-- bouton suppression client -->');?></td>
+							<td><?php echo ('<a href="/php/usermanagement.php?uid='.$result["id_member"].'&action=del">SUPPRIMER</a><!-- bouton suppression client -->');?></td>
 						</tr>
 						<?php
 							}
@@ -47,5 +48,5 @@
 		</div>
 	</div>
 </body>
-<?php require_once('../include/footer.php') ?>
+<?php require_once('../include/footer.php'); ?>
 </html>

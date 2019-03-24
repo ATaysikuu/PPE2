@@ -14,9 +14,11 @@
             <input type="text" id="fsurname" name="fsurname" placeholder="nom"><br/>
             <input type="password" id="fpass" name="fpass" placeholder="mot de passe"><br/>
             <input type="password" id="fpassConf" name="fpassConf" placeholder="confirmation"><br/>
+            <input type="text" id="fpaypal" name="fpaypal" placeholder="paypal"><br/>
             <input type="text" id="fresidence" name="fresidence" placeholder="adresse"><br/>
             <input type="text" id="fzipcode" name="fzipcode" placeholder="code postal"><br/>
             <input type="text" id="fcity" name="fcity" placeholder="ville"><br/>
+            <input type="text" id="fmail" name="fmail" placeholder="email"><br/>
             
             <input type="submit" id="fsubmit" name="submit" value="S\'enregistrer">
         </form>
