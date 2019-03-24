@@ -1,9 +1,8 @@
 <?php session_start() ?>
-
 <!DOCTYPE html>
 <html>
 <head>
-	<title>page admin liste professionnels</title>
+	<title>page admin professionnel</title> <!-- page avec les renseignements du professionel+formations faite -->
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
@@ -14,15 +13,11 @@
 
 	<div class="container">
 		<div class="wrapper">
-			<h2>Liste des professionnels</h2>
-			<div id="listpro_manage" class="row">
+			<h3>Renseignements sur le professionnel</h3>
+			<div id="infos_pro" class="row">
 			
-				<div class="prolist col-md-6">
-					<input type="button" name="modify" class="button" value="Modifier"></button><!-- bouton modifier -->
-					<input type=button name="delete" class="button" value="Supprimer"></button><!-- bouton supprimer -->
-					<ul>
-						<!-- PHP TCHOUUUUUUUUUUUUUUU ICI STP LISTE DES PROFESSIONNELS --->
-					</ul>
+				<div class="pro">
+					<!-- php renseignements pro à voir avec table membres admin=0 -->
 				</div>
 			</div>
 		</div>

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>S'inscrire</title>
     </head>
     <?php require_once('./include/header.php'); ?>
     <body>
@@ -22,8 +22,8 @@
         </form>
         <br />
         <p> Déjà inscrit? Cliquez <a href="/login.php">ici</a></p>
-    ');
-        ?>
+    );
+        '?>
     </body>
     <?php require_once('./include/footer.php'); ?>
 </html>

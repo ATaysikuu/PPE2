@@ -1,34 +1,39 @@
 <?php session_start() ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<title>page connexion admin</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="./css/style.css">
-	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 </head>
-<?php require_once('./include/header.php') ?>
+<?php require_once('../include/header.php') ?> 
 <body>
+	<?php include '../php/config.php' ?>
+
 	<div class="container">
-		<div id="formation_list">
-			<a href="formationlist.php"><button class="list_button">
-				<!-- php liste formation -->
-			</button></a>
-		</div>
+		<div class="wrapper">
+			<h2>Page connexion Administrateur</h2>
+			<span id="formation_list">
+				<a href="formationlist.php" target="_blank"><input type="button" class="list_button" value="Formations"> <!-- bouton cliquable qui redirige vers la page liste formations -->
+				
+				</button></a>
+			</span>
 
-		<div id="list_client">
-			<a href="clientlist.php"><button class="list_button">
-				<!-- php liste client -->
-			</button></a>
-		</div>
+			<span id="list_client">
+				<a href="clientlist.php" target="_blank"><input type="button" class="list_button" value="Clients"><!-- bouton cliquable qui redirige vers la page liste clients -->
+				
+				</button></a>
+			</span>
 
-		<div id="list_pro">
-			<a href="prolist.php"><button class="list_button">
-				<!-- php liste des professionnels -->
-			</button></a>
+			<span id="list_pro">
+				<a href="prolist.php" target="_blank"><input type="button" class="list_button" value="Professionnels"><!-- bouton cliquable qui redirige vers la page liste professionnels -->
+				
+				</button></a>
+			</span>
 		</div>
-
 	</div>
 </body>
-<?php require_once('./include/footer.php') ?>
+<?php require_once('../include/footer.php') ?>
 </html>

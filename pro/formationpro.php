@@ -24,6 +24,10 @@
 			<div id="formation_content">
 				<!-- php mettre la video de la formation -->
 			</div>
+
+			<div id="formation_price">
+				<!-- php mettre le prix qui sera enregistrer en base de donnée avec validation = 0 parce qu'il faut le valider apres avec la page admin-->
+			</div>
 		</div>
 	</div>
 </body>

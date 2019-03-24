@@ -1,4 +1,5 @@
 <?php session_start();?>
+<?php include_once 'php/config.php'; ?>
 <!DOCTYPE html>
 
 <html>
