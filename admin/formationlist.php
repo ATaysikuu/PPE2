@@ -21,6 +21,12 @@
 					<input type="button" name="refuse" class="button" value="Refuser"></button><!-- bouton refuser -->
 					<ul>
 						<!-- PHP TCHOUUUUUUUUUUUUUUU ICI STP pour valider ou refuser une formation validation = 0 --->
+						<td>
+							<?php echo (<form method="GET" action="../php/formation.php?id='.$result["id_article"].'&action=ok">
+											<button type="submit" name="validate" class="button"></button></form>);
+							?> <!-- bouton valider -->
+							
+						</td>
 					</ul>
 				</div>
 	

@@ -1,4 +1,5 @@
 <?php session_start(); ?>
+<?php include './php/config.php' ?>
 <html>
     <head>
         <meta charset="UTF-8">

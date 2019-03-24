@@ -1,4 +1,5 @@
 <?php session_start() ?>
+<?php include './php/config.php' ?>
 <?php require_once('./include/header.php'); ?>
 <?php 
     session_start();

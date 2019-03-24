@@ -2,7 +2,7 @@
 	<div class="container">
 		<div id="header">
 			<div class="logo">
-				<a href="/index.php"><img src="../images/sell_it_logo2.png"></a>
+				<a href="../index.php"><img src="../images/sell_it_logo2.png"></a>
 			</div>
 			<div id="menu">
 				<h2>MENU</h2>
