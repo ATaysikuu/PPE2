@@ -27,7 +27,7 @@ and open the template in the editor.
                         while($result=$req->fetch()){ //for each category in the returned array, print its name in html.
                             ?>
                             <!-- PRINT NAME -->
-                            <option value="<?php echo $result['name_category'];?>">
+                            <option value="<?php echo ($result['name_category']);?>">
                             <?php
                         }
                     ?>

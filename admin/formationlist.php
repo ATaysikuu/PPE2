@@ -55,7 +55,6 @@
 						<table>
 							<tr>
 								<td>NOM</td>
-								<td>DESCRIPTION</td>
 								<td>MODIFIER</td>
 								<td>SUPPRIMER</td>
 								<td>CONSULTER</td>
@@ -65,7 +64,6 @@
 							?>
 							<tr>
 								<td><?php echo ($result['name_article']);?></td>
-								<td><?php echo ($result['description_article']);?></td>
 								<td><?php echo ('<a href="/admin/formation.php?id='.$result["id_article"].'&action=edit"><input type="button" name="edit" class="button" value="Modifier"><!-- bouton modifier une formation -->');?></td>
 								<td><?php echo ('<a href="/admin/formation.php?id='.$result["id_article"].'&action=del"><input type="button" name="del" class="button" value="Supprimer"><!-- bouton supprimer -->');?></td>
 								<td><?php echo ('<a href="/formation.php?id='.$result["id_article"].'"><input type="button" name="consult" class="button" value="Consulter"><!-- bouton voir le contenu -->');?></td>

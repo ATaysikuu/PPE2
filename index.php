@@ -33,25 +33,7 @@
 
 <body>
 	
-    <?php
-        if (isset($_SESSION['pseudo'])){
-            echo($_SESSION['id']);
-            echo($_SESSION['pseudo']);
-            echo("
-                <div class='logoutbutton'>
-                    <a href='/logout.php'>LOGOUT</a>
-                </div>
-            ");
-        }
-        else {
-            echo("
-                <div class='loginbutton'>
-                    <a href='/login.php'>LOGIN</a>
-                </div>
-            ");
-        }
-    ?>
-    <a href="product.php?article=2">test</a>
+    
 </body>
 <?php require_once('./include/footer.php'); ?>
 </html>

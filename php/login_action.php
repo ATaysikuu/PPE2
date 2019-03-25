@@ -24,6 +24,7 @@
                 //echo ('user');
                 session_start();
                 $_SESSION['pseudo'] = $pseudoEntre;
+                $_SESSION['id'] = $result['id_member'];
                 echo '<script>document.location="/index.php"</script>'; //echo a JS script that will immediately take the user to /index.
             }
             else {

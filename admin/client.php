@@ -19,7 +19,7 @@
 					<div class="client">
 						<!--  php renseignements pro à voir avec table membres admin=2 + formation achetee en formulaire -->
 						<?php 
-							$query=$bdd->query("SELECT firstName_member,lastName_member,residence_member,paypal_member,zipcode_member,city_member,mail_member FROM members WHERE id_member=$_GET['id_member']"); 
+							$query=$bdd->query('SELECT firstName_member,lastName_member,residence_member,paypal_member,zipcode_member,city_member,mail_member FROM members WHERE id_member="'.$_GET['id_member'].'"'); 
 							?> <!-- recuperer les donnees du client avec l'id entrer -->
 						<form action="../admin/client.php" method="post">
 							<div class="form-group">

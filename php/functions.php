@@ -19,7 +19,7 @@
      * Below are functions related to user management
      */
     
-    function AddUser($userData){//takes an array containing all data required to sign an user up
+    function AddUser($userData){ //takes an array containing all data required to sign an user up
         $bdd = new PDO('mysql:host=localhost;dbname=sell_it;charset=utf8', 'root', '');
         //prepare the request that will insert the new user in the database
         $req=$bdd->prepare('INSERT INTO `members` (`firstName_member`, `lastName_member`, `residence_member`, `paypal_member`, `registrationDate_member`, `pseudo_member`, `password`, `admin`, `zipcode_member`, `city_member`, `mail_member`, `statut`) 
@@ -31,6 +31,16 @@
         $bdd = new PDO('mysql:host=localhost;dbname=sell_it;charset=utf8', 'root', '');
         //set user status to deleted
         $reqDeleteUser=$bdd->query('UPDATE members SET statut="0" WHERE id_member="'.$id.'"');
+    }
+
+    function UserRole($id){ //return the rights of the user (admin, pro or client)
+        $bdd = new PDO('mysql:host=localhost;dbname=sell_it;charset=utf8', 'root', '');
+        $req=$bdd->prepare('SELECT admin FROM members WHERE id_member=:id');
+        $req->execute(array('id'=>$id));
+        
+        $result = $req->fetch();
+
+        return $result['admin'];
     }
 
     /**
