@@ -13,22 +13,52 @@
 	<?php require_once('../php/config.php') ?>
 	<div class="container">
 		<div class="wrapper">
-			<h2>Formation</h2>
+			<h2><!-- afficher le nom de la formation -->
+                                Formation:
+                                <?php 
+                                        $reqGetNameFormation=$bdd->query('SELECT name_article FROM articles WHERE id_article="'.$_GET['id'].'"');
+                                        while ($res=$reqGetNameFormation->fetch()){
+                                                echo($res['name_article']);
+                                        }
+                                  ?>
+                        </h2>
 			<div id="formation_buy">
 				<div id="formation_info">
-					<form method="post">
-						Nom de la formation:</br>
-						<input type="text" name="name_formation"><br><!-- insérer php pour le nom de la formation -->
-						Professionnel:<br>
-						<input type="text" name="name_professional"><br>
-						Niveau de la formation: <br>
-						<input type="text" name="level_formation"><br>
-					</form>
+                                    <ul>
+                                        <table>
+                                            <tr><!-- afficher le nom du professionnel de la formation -->
+                                                Nom du professionnel:
+                                            <?php 
+                                                    $reqGetNamePro=$bdd->query('SELECT DISTINCT pseudo_member FROM members WHERE id_member=(SELECT articles.id_seller FROM articles WHERE articles.id_article="'.$_GET['id'].'")');
+                                                    while($res=$reqGetNamePro->fetch()){
+                                                        echo($res['pseudo_member']);
+                                                    }
+                                            ?>
+                                            </tr><br><br>
+                                            <tr><!-- afficher la catégorie de la formation -->
+                                                Catégorie:
+                                                <?php
+                                                        $reqGetNameCategory=$bdd->query('SELECT name_category FROM categories WHERE id_category=(SELECT id_category FROM articles WHERE id_article="'.$_GET['id'].'")');
+                                                        while($res=$reqGetNameCategory->fetch()){
+                                                            echo($res['name_category']);
+                                                        }
+                                                ?>
+                                                
+                                            </tr>
+                                           
+                                        </table>
+                                        
+                                    </ul>
+						
+
 				</div>
 				<br>
 				<div id="formation_content">
 					<h3>Contenu de la formation</h3>
 					<!-- php mettre la video de la formation -->
+                                        <?php 
+                                           // :) lol mais yen a pas 
+                                        ?>
 				</div>
 				<br>
 				<div id="formation_review">

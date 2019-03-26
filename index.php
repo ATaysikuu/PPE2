@@ -32,26 +32,38 @@
 <?php require_once('./include/header.php'); ?>
 
 <body>
-	
-    <?php
-        if (isset($_SESSION['pseudo'])){
-            echo($_SESSION['id']);
-            echo($_SESSION['pseudo']);
-            echo("
-                <div class='logoutbutton'>
-                    <a href='/logout.php'>LOGOUT</a>
-                </div>
-            ");
-        }
-        else {
-            echo("
-                <div class='loginbutton'>
-                    <a href='/login.php'>LOGIN</a>
-                </div>
-            ");
-        }
-    ?>
-    <a href="product.php?article=2">test</a>
+    <div class="container">
+        <div class="wrapper">
+              <?php
+                  if (isset($_SESSION['pseudo'])){
+                      echo($_SESSION['id']);
+                      echo($_SESSION['pseudo']);
+                      echo("
+                          <div class='logoutbutton'>
+                              <a href='/logout.php'>LOGOUT</a>
+                          </div>
+                      ");
+                  }
+                  else {
+                      echo("
+                          <div class='loginbutton'>
+                              <a href='/login.php'>LOGIN</a>
+                          </div>
+                      ");
+                  }
+              ?>
+            <div id="icones"> <!-- icones pour Professionnel et Client -->
+                
+                <a href="pro/index.php" target="_blank"><input type="button" value="Professionnel"></a>
+                <a href="client/index.php" target="_blank"><input type="button" value="Client"></a>
+                
+            </div>
+            
+            <a href="product.php?article=2">test</a>
+        </div> <!-- wrapper-->
+        
+    
+    </div><!-- container -->
 </body>
 <?php require_once('./include/footer.php'); ?>
 </html>

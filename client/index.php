@@ -13,14 +13,15 @@
 	<div class="container">
 		<div class="wrapper">
 			<h2>Page Client</h2>
-			<a href="../client/formationlist.php" target="_blank"><input type="button" name="formation_list_buy" value="Formations non achetées"></a>
+			<a href="../client/formation_nobuy.php" target="_blank"><input type="button" name="formation_list_buy" value="Formations non achetées"></a>
 					<!-- php mettre la liste des formations achetees par le client -->
 
 			<!-- TROP LONG A FAIRE <div id="formation_category">
 					php mettre la liste des categories des formations 
 			</div> -->
 
-			<a href="../client/clientformation.php" target="_blank"><input type="button" name="formation_list_buy" value="Formations achetées"></a>
+			<a href="../client/formationlist.php" target="_blank"><input type="button" name="formation_list_buy" value="Formations achetées"></a>
+                        <!-- formation achetee -->
 		</div>
 	</div>
 </body>

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Liste de formations du clients</title>
+	<title>Liste des formations du client</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
@@ -12,11 +12,22 @@
 	<?php require_once('../php/config.php') ?>
 	<div class="container">
 		<div class="wrapper">
-			<h2>Liste des formations non achetées</h2>
+			<h2>Liste des formations achetées</h2>
 			<!-- liste des formations achetees par le client en php -->
-			<td>
-				<tr></tr>
-			</td>
+                        <div id="formation_client">
+                            <ul>
+                                <br><!--Afficher les formations achetées par le client -->
+                                <?php
+                                 
+                                       $reqGetNameFormation=$bdd->query('SELECT name_article FROM articles WHERE articles.id_article=(SELECT soldarticles.id_article FROM soldarticles WHERE id_buyer="'.$_GET['id'].'")'); 
+                                       while($res=$reqGetNameFormation->fetch()){
+                                           echo($res['name_article']);
+                                       }
+                                 ?>
+                               
+                            </ul>
+                              
+                        </div>
 		</div>
 	</div>
 </body>

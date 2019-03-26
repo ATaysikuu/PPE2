@@ -12,6 +12,7 @@
 <body>
 	<?php include '../php/config.php' ?>
 	<div class="container">
+            <div class="wrapper">
 		<h3>
 			<?php //get course's name
 				$reqGetNameFormation=$bdd->query('SELECT name_article FROM articles WHERE id_article="'.$_GET['id'].'"');
@@ -29,6 +30,7 @@
 				}
 			?>
 		</div>
+            </div>
 	</div>
 </body>
 <?php require_once('../include/footer.php') ?>
