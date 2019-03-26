@@ -37,7 +37,7 @@
 							<td><?php echo ($result['firstName_member']);?></td>
 							<td><?php echo ($result['lastName_member']);?></td>
 							<td><?php echo ('<a href="/php/usermanagement.php?uid='.$result["id_member"].'&action=del"><input type="button" name="delete" class="button" value="Supprimer"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?></td>
-							<td><?php echo ('<a href=""><input type="button" name="delete" class="button" value="Modifier"><!-- bouton edition --></a><!-- bouton edition client -->');?></td>
+							<td><?php echo ('<a href="/php/client.php?uid='.$result["id_member"].'"><input type="button" name="delete" class="button" value="Modifier"><!-- bouton edition --></a><!-- bouton edition client -->');?></td>
 						</tr>
 						<?php
 							}

@@ -27,6 +27,11 @@
         //execute the request with the array
         $req->execute($userData);
     }
+    function UpdateUser($userData){
+        $bdd = new PDO('mysql:host=localhost;dbname=sell_it;charset=utf8', 'root', '');
+        $req=$bdd->prepare('UPDATE members SET firstName_member=:name, lastName_member=:surname, paypal_member=:paypal, mail_member=:email, residence_member=:residence, zipcode_member=:zipcode,city_member=:city');
+        $req->execute($userData);
+    }
     function DeleteUser($id){
         $bdd = new PDO('mysql:host=localhost;dbname=sell_it;charset=utf8', 'root', '');
         //set user status to deleted
