@@ -19,12 +19,13 @@
 					<div class="client">
 						<!--  php renseignements pro à voir avec table membres admin=2 + formation achetee en formulaire -->
 						<?php 
-							$query=$bdd->query('SELECT id_member, firstName_member,lastName_member,residence_member,paypal_member,zipcode_member,city_member,mail_member FROM members WHERE id_member="'.$_GET['uid'].'"'); 
+							$query=$bdd->query('SELECT id_member, pseudo_member, firstName_member,lastName_member,residence_member,paypal_member,zipcode_member,city_member,mail_member FROM members WHERE id_member="'.$_GET['uid'].'"'); 
 							$clientInfo=$query->fetch();
 							?> <!-- recuperer les donnees du client avec l'id entrer -->
-						<form action="../admin/client.php" method="GET">
+						<form action="/php/usermanagement.php?uid=<?php echo($clientInfo['id_member'])?>&action=up" method="POST" id="formuserinfo">
 							<div class="form-group row">
 								<div class="col-md-6">
+									<label for="firstname">Pseudo: </label><br />
 									<label for="firstname">First Name: </label><br />
 									<label for="lastname">Last Name: </label><br />
 									<label for="paypal">Paypal Adress: </label><br />
@@ -34,6 +35,7 @@
 									<label for="city">City: </label>
 								</div>
 								<div class="col-md-6">
+									<input type="text" name="pseudo" value="<?php echo(($clientInfo['pseudo_member']))?>"><br />
 									<input type="text" name="firstname" value="<?php echo(($clientInfo['firstName_member']))?>"><br />
 									<input type="text" name="lastname" value="<?php echo(($clientInfo['lastName_member']))?>"><br />
 									<input type="text" name="paypal" value="<?php echo(($clientInfo['paypal_member']))?>"><br />
@@ -46,7 +48,7 @@
 							<div class="row">
 								<div class="col-md-4">
 								<!--TODO-->
-									<?php echo ('<a href="/php/usermanagement.php?uid='.$clientInfo["id_member"].'&action=up"><input type="button" name="update" class="button" value="Sauvegarder"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?>
+									<?php echo ('<input type="submit" name="update" class="button" value="Sauvegarder"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?>
 								</div>
 								<div class="col-md-4">
 									<?php echo ('<a href="/php/usermanagement.php?uid='.$clientInfo["id_member"].'&action=del"><input type="button" name="delete" class="button" value="Supprimer"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?>
@@ -56,6 +58,15 @@
 									<?php echo ('<a href="/php/usermanagement.php?uid='.$clientInfo["id_member"].'&action=res"><input type="button" name="delete" class="button" value="Reset pass"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?>
 								</div>
 							</div>
+							<div class="row">
+								<?php 
+									if (isset($_GET['result'])){
+										if($_GET['result']=="ok"){
+											 echo('<p>Utilisateur mis à jour!</p>');
+										}
+									}
+								?>
+							</div>
 						</form>
 					</div>
 			
@@ -63,5 +74,21 @@
 		</div>
 	</div>
 </body>
+<script src="/js/jquery331.js"></script>
+<script>
+	$(function(){
+		$('formuserinfo').on('submit', function(e){
+			e.preventDefault();
+			$.ajax({
+				type:'post',
+				url:'/php/usermanagement.php?action=up',
+				data:$('formuserinfo').serialize(),
+				success: function(){
+					alert('user removed');
+				}
+			});
+		});
+	});
+</script>
 <?php require_once('../include/footer.php') ?>
 </html>

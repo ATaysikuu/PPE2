@@ -1,14 +1,24 @@
 <?php
     require_once("functions.php");
-    switch($_GET['action']){
+    switch($_REQUEST['action']){
         case "del":
-            DeleteUser($_GET['uid']);
+            DeleteUser($_REQUEST['uid']);
             break;
         case "up":
-            UpdateUser($_GET['uid']);
+            $userData = [
+                'pseudo'=>$_POST['pseudo'],
+                'name'=>$_POST['firstname'],
+                'surname'=>$_POST['lastname'],
+                'residence'=>$_POST['residence'],
+                'paypal'=>$_POST['paypal'],
+                'zipcode'=>$_POST['zipcode'],
+                'city'=>$_POST['city'],
+                'email'=>$_POST['mail']
+            ];
+            UpdateUser($_REQUEST['uid'], $userData);
             break;
         case "res":
-            ResetPassword($_GET['uid']);
+            ResetPassword($_REQUEST['uid']);
             break;
     }
 ?>
