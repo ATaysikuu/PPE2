@@ -1,6 +1,5 @@
 <?php
-	require_once("../php/config.php");
-	require_once("../php/functions.php");
+	require_once($_SERVER['DOCUMENT_ROOT']."/php/functions.php");
 	if(isset($_SESSION['id'])){
 		switch(UserRole($_SESSION['id'])){
 			case "0":

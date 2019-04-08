@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once("../php/functions.php");
+require_once("functions.php");
 echo($_SESSION['pseudo']);
 if(CheckAdmin($_SESSION['pseudo'])){
     if($_GET['action']=='ok'){

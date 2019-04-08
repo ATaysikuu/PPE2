@@ -8,11 +8,10 @@
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 	<meta charset="utf-8">
 </head>
-<?php require_once('./include/header.php') ?> <!-- rajout du header -->
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php') ?> <!-- rajout du header -->
 <body>
-	<?php include './php/config.php' ?>
 	
 
 </body>
-	<?php require_once('./include/footer.php') ?> <!-- rajout du footer -->
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/footer.php') ?> <!-- rajout du footer -->
 </html>

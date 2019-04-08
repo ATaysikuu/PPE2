@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 </head>
-<?php require_once('../include/header.php') ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php') ?>
 <body>
 	<?php include '../php/config.php' ?>
 
@@ -21,7 +21,7 @@
 				<ul>
 					<!-- PHP TCHOUUUUUUUUUUUUUUU ICI STP LISTE DES PROFESSIONNELS --->
 					<?php
-						require_once("../php/config.php");
+						require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
 						$req=$bdd->query('SELECT id_member, pseudo_member, firstName_member, lastName_member FROM members WHERE admin="0"'); //get all clients
 					?>
 					<table>
@@ -50,5 +50,5 @@
 		</div>
 	</div>
 </body>
-<?php require_once('../include/footer.php') ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/footer.php') ?>
 </html>

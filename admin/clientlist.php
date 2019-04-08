@@ -8,9 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 </head>
-<?php require_once('../include/header.php') ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php') ?>
 <body>
-	<?php include '../php/config.php' ?>
 	<div class="container">
 		<div class="wrapper">
 			<h2>Liste des clients</h2>
@@ -19,7 +18,7 @@
 				<div class="clientlist col-md-6">					
 					<!-- PHP TCHOUUUUUUUUUUUUUUU ICI STP liste des clients admin = 2 --->
 					<?php
-						require_once("../php/config.php");
+						require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
 						$req=$bdd->query('SELECT id_member, pseudo_member, firstName_member, lastName_member FROM members WHERE admin="2" && statut="1"'); //get all clients
 					?>
 					<table>
@@ -49,5 +48,5 @@
 		</div>
 	</div>
 </body>
-<?php require_once('../include/footer.php') ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/footer.php') ?>
 </html>

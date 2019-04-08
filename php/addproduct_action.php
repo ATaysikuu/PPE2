@@ -7,7 +7,7 @@ try {
         isset($_POST['fdescription']) && //description of the course
         isset($_POST['fprice'])){ //well, price of the bloody course
         
-        require_once("config.php"); //get config file with db info
+        require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php"); //get config file with db info
         //prepare request to get category id.
         $reqGetIDCateg=$bdd->prepare('SELECT id FROM categories WHERE name_category = :categ');
         //main request. Prepare the sql command. 

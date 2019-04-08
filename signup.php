@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <title>S'inscrire</title>
     </head>
-    <?php require_once('./include/header.php'); ?>
+    <?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php'); ?>
     <body>
         <?php
         echo('
@@ -28,5 +28,5 @@
     ');
         ?>
     </body>
-    <?php require_once('./include/footer.php'); ?>
+    <?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/footer.php'); ?>
 </html>

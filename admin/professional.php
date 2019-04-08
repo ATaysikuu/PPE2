@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 </head>
-<?php require_once('../include/header.php') ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php') ?>
 <body>
 	<?php include '../php/config.php' ?>
 
@@ -23,5 +23,5 @@
 		</div>
 	</div>
 </body>
-<?php require_once('../include/footer.php') ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/footer.php') ?>
 </html>

@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <head>
 </head>
-<?php require_once('./include/header.php'); ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php'); ?>
 <?php
 
     try {
-        require_once("./php/config.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
         $req=$bdd->prepare('SELECT * FROM articles WHERE id_article = :id_art_Req');
         $idArticle = $_GET['id'];
         
@@ -28,4 +28,4 @@
     <h4><?php echo($articlePrice);?></h4><br/>
 </div>
 </html>
-<?php require_once('./include/footer.php'); ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/footer.php'); ?>

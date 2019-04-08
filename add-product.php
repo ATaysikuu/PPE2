@@ -22,7 +22,7 @@ and open the template in the editor.
                 <datalist id="fcateg">
                     <!-- GET ALL CATEGORIES FROM DB -->
                     <?php
-                        require_once("./php/config.php");
+                        require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
                         $req=$bdd->query('SELECT name_category FROM categories');
                         while($result=$req->fetch()){ //for each category in the returned array, print its name in html.
                             ?>
