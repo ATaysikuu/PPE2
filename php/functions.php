@@ -7,8 +7,8 @@
     function AddUser($userData){ //takes an array containing all data required to sign an user up
         require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
         //prepare the request that will insert the new user in the database
-        $req=$bdd->prepare('INSERT INTO `members` (`firstName_member`, `lastName_member`, `residence_member`, `paypal_member`, `registrationDate_member`, `pseudo_member`, `password`, `admin`, `zipcode_member`, `city_member`, `mail_member`, `statut`) 
-                                        VALUES (:name,:surname,:residence,:paypal,:regdate,:pseudo,:pass,:admin,:zipcode,:city,:email,:statut)');
+        $req=$bdd->prepare('INSERT INTO `members` (`firstName_member`, `lastName_member`, `residence_member`, `paypal_member`, `registrationDate_member`, `pseudo_member`, `password`, `role`, `zipcode_member`, `city_member`, `mail_member`, `statut`) 
+                                        VALUES (:name,:surname,:residence,:paypal,:regdate,:pseudo,:pass,:role,:zipcode,:city,:email,:statut)');
         //execute the request with the array
         $req->execute($userData);
     }
@@ -19,7 +19,7 @@
         $req->execute($userData);
         header('Location: /admin/client.php?uid='.$uid.'&result=ok');
     }
-    //generates a randome string and use it to reset the user password
+    //generates a random string and use it to reset the user password
     function ResetPassword($id){
         require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
         $req=$bdd->prepare('UPDATE members SET password=:newpass WHERE id_member="'.$id.'"');
@@ -35,19 +35,19 @@
     }
     //return the rights of the user (admin, pro or client)
     function UserRole($id){ 
-        $bdd = new PDO('mysql:host=localhost;dbname=sell_it;charset=utf8', 'root', 'pass');
+        $bdd = new PDO('mysql:host=localhost;dbname=sell_it;charset=utf8', 'root', '');
         //require_once("config.php");
-        $req=$bdd->prepare('SELECT admin FROM members WHERE id_member=:id');
+        $req=$bdd->prepare('SELECT role FROM members WHERE id_member=:id');
         $req->execute(array('id'=>$id));
         
         $result = $req->fetch();
 
-        return $result['admin'];
+        return $result['role'];
     }
     //takes a pseudo and return true if the user has admin rights
     function CheckAdmin($pseudo){ 
         require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
-        $checkadmin=$bdd->prepare('SELECT * FROM members WHERE pseudo_member = :pseudoReq AND admin="1"');
+        $checkadmin=$bdd->prepare('SELECT * FROM members WHERE pseudo_member = :pseudoReq AND role="0"');
         $checkadmin->execute(array('pseudoReq' => $pseudo));
 
         $result = $checkadmin->fetch();
@@ -55,7 +55,7 @@
         if (!$result){
             return false;
         }
-        elseif($result['admin']=="1"){
+        elseif($result['role']=="1"){
             return true;
         }
     }
