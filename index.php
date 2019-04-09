@@ -1,5 +1,5 @@
 <?php session_start();?>
-<?php include_once './php/config.php'; ?>
+<?php include_once($_SERVER['DOCUMENT_ROOT'].'/php/config.php'); ?>
 <!DOCTYPE html>
 
 <html>
@@ -28,7 +28,7 @@
 </head>
  <!-- a passer en local -->
  
-<?php require_once('./include/header.php'); ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php'); ?>
 
 <body>
     <div class="container">
@@ -64,5 +64,5 @@
     
     </div><!-- container -->
 </body>
-<?php require_once('./include/footer.php'); ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/footer.php'); ?>
 </html>

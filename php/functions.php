@@ -35,7 +35,8 @@
     }
     //return the rights of the user (admin, pro or client)
     function UserRole($id){ 
-        require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $bdd = new PDO('mysql:host=localhost;dbname=sell_it;charset=utf8', 'root', 'pass');
+        //require_once("config.php");
         $req=$bdd->prepare('SELECT admin FROM members WHERE id_member=:id');
         $req->execute(array('id'=>$id));
         

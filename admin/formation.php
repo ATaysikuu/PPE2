@@ -1,16 +1,15 @@
 <?php session_start() ?>
-<?php require_once("../php/config.php");?>
+<?php require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>page admin formation</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
-	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 </head>
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php') ?>
 <body>
-	<?php include '../php/config.php' ?>
 	<div class="container">
             <div class="wrapper">
 		<h3>

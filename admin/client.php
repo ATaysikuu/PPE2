@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 </head>
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php') ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/config.php') ?>
 <body>
 	<div class="container">
 		<div class="wrapper">
