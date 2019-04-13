@@ -59,6 +59,20 @@
             return true;
         }
     }
+    //Return an array containing all ACTIVE clients (where role = 2 && status = 1)
+    function GetClients(){
+        require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->query('SELECT id_member, pseudo_member, firstName_member, lastName_member FROM members WHERE role="2" && statut="1"'); //get all ACTIVE clients
+        $result=$req->fetchAll();
+        return $result;
+    }
+    //Return an array containing all ACTIVE pros (where role = 1 && status = 1)
+    function GetPros(){
+        require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->query('SELECT id_member, pseudo_member, firstName_member, lastName_member FROM members WHERE role="1" && statut="1"'); //get all ACTIVE pros
+        $result=$req->fetchAll();
+        return $result;
+    }
 
     /**
      * Course management
@@ -76,7 +90,7 @@
      function GetUnvalidatedCourses(){
         require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
         $req=$bdd->query('SELECT id_article, name_article, description_article FROM articles WHERE validation="0"'); //get all waiting courses
-        $result=array($req->fetch());
+        $result=$req->fetchAll();
         return $result;
      }
      function ValidateCourse($courseID){
