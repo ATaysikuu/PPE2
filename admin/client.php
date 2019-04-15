@@ -4,11 +4,11 @@
 <head>
 	<title>page admin client</title> <!-- page avec les renseignements du client + formation achetee -->
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
-	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 </head>
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php') ?>
-<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/config.php') ?>
+<?php  ?>
 <body>
 	<div class="container">
 		<div class="wrapper">
@@ -18,6 +18,7 @@
 					<div class="client">
 						<!--  php renseignements pro à voir avec table membres admin=2 + formation achetee en formulaire -->
 						<?php 
+							require($_SERVER['DOCUMENT_ROOT'].'/php/config.php');
 							$query=$bdd->query('SELECT id_member, pseudo_member, firstName_member,lastName_member,residence_member,paypal_member,zipcode_member,city_member,mail_member FROM members WHERE id_member="'.$_GET['uid'].'"'); 
 							$clientInfo=$query->fetch();
 							?> <!-- recuperer les donnees du client avec l'id entrer -->

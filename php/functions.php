@@ -5,7 +5,7 @@
      */
     
     function AddUser($userData){ //takes an array containing all data required to sign an user up
-        require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
         //prepare the request that will insert the new user in the database
         $req=$bdd->prepare('INSERT INTO `members` (`firstName_member`, `lastName_member`, `residence_member`, `paypal_member`, `registrationDate_member`, `pseudo_member`, `password`, `role`, `zipcode_member`, `city_member`, `mail_member`, `statut`) 
                                         VALUES (:name,:surname,:residence,:paypal,:regdate,:pseudo,:pass,:role,:zipcode,:city,:email,:statut)');
@@ -14,14 +14,14 @@
     }
     //updates the user info in the database with the array given (userData)
     function UpdateUser($uid, $userData){
-        require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
         $req=$bdd->prepare('UPDATE members SET pseudo_member=:pseudo, firstName_member=:name, lastName_member=:surname, paypal_member=:paypal, mail_member=:email, residence_member=:residence, zipcode_member=:zipcode,city_member=:city WHERE id_member="'.$uid.'"');
         $req->execute($userData);
         header('Location: /admin/client.php?uid='.$uid.'&result=ok');
     }
-    //generates a random string and use it to reset the user password
+    //asks for a random string and use it to reset the user password
     function ResetPassword($id){
-        require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
         $req=$bdd->prepare('UPDATE members SET password=:newpass WHERE id_member="'.$id.'"');
         $newpass = GeneratePassword();
         $req->execute(['newpass'=>$newpass]);
@@ -29,14 +29,14 @@
     }
     //removes the user from the database
     function DeleteUser($id){
-        require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
         //set user status to deleted
         $reqDeleteUser=$bdd->query('UPDATE members SET statut="0" WHERE id_member="'.$id.'"');
     }
     //return the rights of the user (admin, pro or client)
     function UserRole($id){ 
-        $bdd = new PDO('mysql:host=localhost;dbname=sell_it;charset=utf8', 'root', '');
-        //require_once("config.php");
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        //require("config.php");
         $req=$bdd->prepare('SELECT role FROM members WHERE id_member=:id');
         $req->execute(array('id'=>$id));
         
@@ -46,7 +46,7 @@
     }
     //takes a pseudo and return true if the user has admin rights
     function CheckAdmin($pseudo){ 
-        require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
         $checkadmin=$bdd->prepare('SELECT * FROM members WHERE pseudo_member = :pseudoReq AND role="0"');
         $checkadmin->execute(array('pseudoReq' => $pseudo));
 
@@ -59,48 +59,8 @@
             return true;
         }
     }
-    //Return an array containing all ACTIVE clients (where role = 2 && status = 1)
-    function GetClients(){
-        require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
-        $req=$bdd->query('SELECT id_member, pseudo_member, firstName_member, lastName_member FROM members WHERE role="2" && statut="1"'); //get all ACTIVE clients
-        $result=$req->fetchAll();
-        return $result;
-    }
-    //Return an array containing all ACTIVE pros (where role = 1 && status = 1)
-    function GetPros(){
-        require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
-        $req=$bdd->query('SELECT id_member, pseudo_member, firstName_member, lastName_member FROM members WHERE role="1" && statut="1"'); //get all ACTIVE pros
-        $result=$req->fetchAll();
-        return $result;
-    }
-
-    /**
-     * Course management
-     */
-
-     function AddCourse($courseData){
-         
-     }
-     function DeleteCourse($id){
-         
-     }
-     function GetCourses(){
-
-     }
-     function GetUnvalidatedCourses(){
-        require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
-        $req=$bdd->query('SELECT id_article, name_article, description_article FROM articles WHERE validation="0"'); //get all waiting courses
-        $result=$req->fetchAll();
-        return $result;
-     }
-     function ValidateCourse($courseID){
-         
-     }
-
-
-
-     //Generates a random password
-     function GeneratePassword($length = 8) {
+    //Generates a random password
+    function GeneratePassword($length = 8) {
         $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         $count = mb_strlen($chars);
     
@@ -111,4 +71,85 @@
     
         return $result;
     }
+
+
+
+    //Return an array containing all ACTIVE clients (where role = 2 && status = 1)
+    function GetClients(){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->query('SELECT id_member, pseudo_member, firstName_member, lastName_member FROM members WHERE role="2" && statut="1"'); //get all ACTIVE clients
+        $result=$req->fetchAll();
+        return $result;
+    }
+    //Return an array containing all INACTIVE clients (where role = 2 && status = 0)
+    function GetInactiveClients(){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->query('SELECT id_member, pseudo_member, firstName_member, lastName_member FROM members WHERE role="2" && statut="0"'); //get all INACTIVE clients
+        $result=$req->fetchAll();
+        return $result;
+    }
+
+    //Return an array containing all ACTIVE pros (where role = 1 && status = 1)
+    function GetPros(){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->query('SELECT id_member, pseudo_member, firstName_member, lastName_member FROM members WHERE role="1" && statut="1"'); //get all ACTIVE pros
+        $result=$req->fetchAll();
+        return $result;
+    }
+
+
+    /**
+     * Course management
+     */
+
+     //add a new course to the DB. Takes an array containing all the data of this course.
+     function AddCourse($courseData){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->prepare('INSERT INTO articles(`id_seller`, `id_category`, `date_article`, `name_article`, `description_article`, `price_article`, `validation`)
+                            VALUES(:idseller,:idcateg,:date,:name,:desc,:price,:validation)');
+        print_r($courseData);
+        echo($courseData['idcateg']);
+        $req->execute($courseData);
+        echo(GetUnvalidatedCourses());
+     }
+     //remove a course from the DB.
+     function DeleteCourse($id){
+         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+         if(CheckAdmin($_SESSION['pseudo'])){
+            $req=$bdd->query('DELETE FROM articles WHERE id_article="'.$id.'"');
+         }
+     }
+     //returns an array containing ALL AND EVERY course in the database. Validated or not.
+     function GetAllCourses(){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        if(CheckAdmin($_SESSION['pseudo'])){
+            $req=$bdd->query('SELECT id_article, name_article, description_article FROM articles'); //get all courses, validated or not
+            $result=$req->fetchAll();
+            return $result;
+        }
+     }
+     //returns an array containing all courses awaiting validation by an admin.
+     function GetUnvalidatedCourses(){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        if(CheckAdmin($_SESSION['pseudo'])){
+            $req=$bdd->query('SELECT id_article, name_article, description_article FROM articles WHERE validation="0"'); //get all waiting courses
+            $result=$req->fetchAll();
+            return $result;
+        }
+     }
+     //returns an array containing all courses validated.
+     function GetValidatedCourses(){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->query('SELECT id_article, name_article, description_article FROM articles WHERE validation="1"'); //get all validated courses
+        $result=$req->fetchAll();
+        return $result;
+     }
+     //set articles.validation to 1
+     function ValidateCourse($courseID){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        if(CheckAdmin($_SESSION['pseudo'])){
+            $req=$bdd->query('UPDATE articles SET validation="1" WHERE id_article="'.$courseID.'"');
+        }
+        else echo("NOT ADMIN.");
+     }
 ?>

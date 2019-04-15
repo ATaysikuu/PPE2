@@ -4,20 +4,23 @@
 		switch(UserRole($_SESSION['id'])){
 			case "0":
 				echo('
-				<div class="container">
-					<div id="header">
-						<div class="logo">
-							<a href="/"><img src="/images/sell_it_logo2.png"></a>
-						</div>
-						<div id="menu">
-							<h2>MENU</h2>
-							<a href="/php/logout.php">Déconnexion ('.$_SESSION['pseudo'].')</a>
-							<a href="/client/formationlist.php">Formations</a>
-							<a href="/basket.php">Panier</a>
-							<a href="/contact.php">Contact</a>
+					<div class="container">
+						<div id="header">
+							<div class="logo">
+								<a href="/"><img src="/images/sell_it_logo2.png"></a>
+							</div>
+							<div id="menu">
+								<h2>MENU</h2>
+								<a href="/admin/index.php">Admin</a>
+								<a href="/php/logout.php">Déconnexion ('.$_SESSION['pseudo'].')</a>
+								<a href="/admin/formationlist.php">Formations</a>
+								<a href="/admin/clientlist.php">Clients</a>
+								<a href="/admin/prolist.php">Pros</a>
+								<a href="/basket.php">Panier</a>
+								<a href="/contact.php">Contact</a>
+							</div>
 						</div>
 					</div>
-				</div>
 				');
 				break;
 			case "1":
@@ -29,9 +32,8 @@
 						</div>
 						<div id="menu">
 							<h2>MENU</h2>
-							<a href="/admin/index.php">Admin</a>
 							<a href="/php/logout.php">Déconnexion ('.$_SESSION['pseudo'].')</a>
-							<a href="/pro/formationlist.php">Formations</a>
+							<a href="/client/formationlist.php">Formations</a>
 							<a href="/basket.php">Panier</a>
 							<a href="/contact.php">Contact</a>
 						</div>
