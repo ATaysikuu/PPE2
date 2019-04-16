@@ -1,5 +1,10 @@
 <?php session_start() ?>
-<?php require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");?>
+<?php require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+	require_once($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
+	if(!CheckAdmin($_SESSION['pseudo'])){
+		header("Location: /");
+	}
+?>
 <!DOCTYPE html>
 <html>
 <head>

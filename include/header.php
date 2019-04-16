@@ -12,12 +12,12 @@
 							<div id="menu">
 								<h2>MENU</h2>
 								<a href="/admin/index.php">Admin</a>
-								<a href="/php/logout.php">Déconnexion ('.$_SESSION['pseudo'].')</a>
 								<a href="/admin/formationlist.php">Formations</a>
 								<a href="/admin/clientlist.php">Clients</a>
 								<a href="/admin/prolist.php">Pros</a>
 								<a href="/basket.php">Panier</a>
 								<a href="/contact.php">Contact</a>
+								<a href="/php/logout.php">Déconnexion ('.$_SESSION['pseudo'].')</a>
 							</div>
 						</div>
 					</div>
@@ -32,10 +32,12 @@
 						</div>
 						<div id="menu">
 							<h2>MENU</h2>
-							<a href="/php/logout.php">Déconnexion ('.$_SESSION['pseudo'].')</a>
-							<a href="/client/formationlist.php">Formations</a>
+							<a href="/pro/formationlist.php">Toutes les Formations</a>
+							<a href="/pro/formationlist.php">Mes Formations</a>
+							<a href="/pro/formationlist.php">Mes Formations mises en ligne</a>
 							<a href="/basket.php">Panier</a>
 							<a href="/contact.php">Contact</a>
+							<a href="/php/logout.php">Déconnexion ('.$_SESSION['pseudo'].')</a>
 						</div>
 					</div>
 				</div>
@@ -50,10 +52,11 @@
 						</div>
 						<div id="menu">
 							<h2>MENU</h2>
-							<a href="/php/logout.php">Déconnexion ('.$_SESSION['pseudo'].')</a>
-							<a href="/client/formationlist.php">Formations</a>
+							<a href="/client/formationlist.php">Mes Formations</a>
+							<a href="/client/formationlist.php">Toutes les Formations</a>
 							<a href="/basket.php">Panier</a>
 							<a href="/contact.php">Contact</a>
+							<a href="/php/logout.php">Déconnexion ('.$_SESSION['pseudo'].')</a>
 						</div>
 					</div>
 				</div>

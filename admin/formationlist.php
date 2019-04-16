@@ -1,4 +1,9 @@
-<?php session_start() ?>
+<?php session_start();
+	require_once($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
+	if(!CheckAdmin($_SESSION['pseudo'])){
+		header("Location: /");
+	}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,8 +25,7 @@
 				<ul>
 					<!-- PHP TCHOUUUUUUUUUUUUUUU ICI STP pour valider ou refuser une formation --->
 					<?php
-						require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
-						$req=$bdd->query('SELECT id_article, name_article, description_article FROM articles WHERE validation="0"'); //get all waiting courses
+						
 					?>
 					<table>
 						<tr>
@@ -31,13 +35,15 @@
 							<td>REFUSER</td>
 						<tr>
 						<?php
-							while($result=$req->fetch()){ //for each course in the returned array, print its name in html + buttons to accept or refuse course
+							require_once($_SERVER['DOCUMENT_ROOT']."/php/functions.php");
+							$formationlist=GetAllCourses();
+							foreach($formationlist as $formation){ //for each course in the returned array, print its name in html + buttons to accept or refuse course
 						?>
 						<tr>
-							<td><?php echo ($result['name_article']);?></td>
-							<td><?php echo ($result['description_article']);?></td>
-							<td><?php echo ('<a href="/php/validationformation.php?id='.$result["id_article"].'&action=ok"><input type="button" name="ok" class="button" value="Valider"></a> <!-- bouton valider -->');?></td>
-							<td><?php echo ('<a href="/php/validationformation.php?id='.$result["id_article"].'&action=no"><input type="button" name="no" class="button" value="Refuser"></a><!-- bouton refuser -->');?></td>
+							<td><?php echo ($formation['name_article']);?></td>
+							<td><?php echo ($formation['description_article']);?></td>
+							<td><?php echo ('<a href="/php/validationformation.php?id='.$formation["id_article"].'&action=ok"><input type="button" name="ok" class="button" value="Valider"></a> <!-- bouton valider -->');?></td>
+							<td><?php echo ('<a href="/php/validationformation.php?id='.$formation["id_article"].'&action=no"><input type="button" name="no" class="button" value="Refuser"></a><!-- bouton refuser -->');?></td>
 						</tr>
 						<?php
 							}

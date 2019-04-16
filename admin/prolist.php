@@ -1,4 +1,9 @@
-<?php session_start() ?>
+<?php session_start();
+	require_once($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
+	if(!CheckAdmin($_SESSION['pseudo'])){
+		header("Location: /");
+	}
+?>
 
 <!DOCTYPE html>
 <html>
@@ -36,7 +41,7 @@
 							<td><?php echo ($pro['firstName_member']);?></td>
 							<td><?php echo ($pro['lastName_member']);?></td>
 							<td><?php echo ('<a href="/php/usermanagement.php?uid='.$pro["id_member"].'&action=del"><input type="button" name="delete" class="button" value="Supprimer"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?></td>
-							<td><?php echo ('<a href="/admin/client.php?uid='.$pro["id_member"].'"><input type="button" name="edit" class="button" value="Modifier"><!-- bouton edition --></a><!-- bouton edition client -->');?></td>
+							<td><?php echo ('<a href="/admin/professional.php?uid='.$pro["id_member"].'"><input type="button" name="edit" class="button" value="Modifier"><!-- bouton edition --></a><!-- bouton edition client -->');?></td>
 						</tr>
 						<?php
 							}

@@ -55,7 +55,7 @@
         if (!$result){
             return false;
         }
-        elseif($result['role']=="1"){
+        elseif($result['role']=="0"){
             return true;
         }
     }
@@ -118,6 +118,13 @@
          if(CheckAdmin($_SESSION['pseudo'])){
             $req=$bdd->query('DELETE FROM articles WHERE id_article="'.$id.'"');
          }
+     }
+     //returns an array containing ALL AND EVERY course of the pro. Validated or not.
+     function GetAllCoursesPro($uid){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->query('SELECT id_article, name_article, description_article FROM articles WHERE id_seller="'.$uid.'"'); //get all courses, validated or not
+        $result=$req->fetchAll();
+        return $result;
      }
      //returns an array containing ALL AND EVERY course in the database. Validated or not.
      function GetAllCourses(){
