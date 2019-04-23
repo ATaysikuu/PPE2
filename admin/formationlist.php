@@ -29,6 +29,8 @@
 					?>
 					<table>
 						<tr>
+							<th colspan="4">Formations en attente de validation</th></tr>
+						<tr>
 							<td>NOM</td>
 							<td>DESCRIPTION</td>
 							<td>VALIDER</td>
@@ -36,7 +38,7 @@
 						<tr>
 						<?php
 							require_once($_SERVER['DOCUMENT_ROOT']."/php/functions.php");
-							$formationlist=GetAllCourses();
+							$formationlist=GetUnvalidatedCourses();
 							foreach($formationlist as $formation){ //for each course in the returned array, print its name in html + buttons to accept or refuse course
 						?>
 						<tr>
@@ -49,30 +51,28 @@
 							}
 						?>
 					</table>
-				</ul>
 			</div>
+				</ul>
 			<div class="formationlist col-md-6">
 				<ul>
-					<!-- PHP TCHOUUUUUUUUUUUUUUU ICI STP liste des formations deja valider --->
-					<?php
-						require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php");
-						$req=$bdd->query('SELECT id_article, name_article, description_article FROM articles WHERE validation="1"'); //get all courses
-						?>
 						<table>
+							<th colspan="4">Formations validées</th></tr>
 							<tr>
 								<td>NOM</td>
 								<td>MODIFIER</td>
 								<td>SUPPRIMER</td>
 								<td>CONSULTER</td>
 							<tr>
-							<?php
-								while($result=$req->fetch()){ //for each category in the returned array, print its name in html + buttons to edit, delete or consult course
+						<?php
+							require_once($_SERVER['DOCUMENT_ROOT']."/php/functions.php");
+							$formationlistvalidated=GetValidatedCourses();
+							foreach($formationlistvalidated as $formation){ //for each course in the returned array, print its name in html + buttons to accept or refuse course
 							?>
 							<tr>
-								<td><?php echo ($result['name_article']);?></td>
-								<td><?php echo ('<a href="/admin/formation.php?id='.$result["id_article"].'&action=edit"><input type="button" name="edit" class="button" value="Modifier"><!-- bouton modifier une formation -->');?></td>
-								<td><?php echo ('<a href="/admin/formation.php?id='.$result["id_article"].'&action=del"><input type="button" name="del" class="button" value="Supprimer"><!-- bouton supprimer -->');?></td>
-								<td><?php echo ('<a href="/formation.php?id='.$result["id_article"].'"><input type="button" name="consult" class="button" value="Consulter"><!-- bouton voir le contenu -->');?></td>
+								<td><?php echo ($formation['name_article']);?></td>
+								<td><?php echo ('<a href="/admin/formation.php?id='.$formation["id_article"].'&action=edit"><input type="button" name="edit" class="button" value="Modifier"><!-- bouton modifier une formation -->');?></td>
+								<td><?php echo ('<a href="/admin/formation.php?id='.$formation["id_article"].'&action=del"><input type="button" name="del" class="button" value="Supprimer"><!-- bouton supprimer -->');?></td>
+								<td><?php echo ('<a href="/formation.php?id='.$formation["id_article"].'"><input type="button" name="consult" class="button" value="Consulter"><!-- bouton voir le contenu -->');?></td>
 							</tr>
 							<?php
 								}
