@@ -1,10 +1,26 @@
 <?php
+session_start();
     require_once("functions.php");
     switch($_REQUEST['action']){
-        case "del":
-            DeleteUser($_REQUEST['uid']);
+        case "deactivate":
+            DeactivateUser($_REQUEST['uid']);
+            if($_REQUEST['list']=="1"){
+                header("Location: /admin/clientlist.php");
+            }
             break;
-        case "up":
+        case "reactivate":
+            ReactivateUser($_REQUEST['uid']);
+            if($_REQUEST['list']=="1"){
+                header("Location: /admin/clientlist.php");
+            }
+            break;
+        case "delete":
+            DeleteUser($_REQUEST['uid']);
+            if($_REQUEST['list']=="1"){
+                header("Location: /admin/clientlist.php");
+            }
+            break;
+        case "update":
             $userData = [
                 'pseudo'=>$_POST['pseudo'],
                 'name'=>$_POST['firstname'],
@@ -16,9 +32,15 @@
                 'email'=>$_POST['mail']
             ];
             UpdateUser($_REQUEST['uid'], $userData);
+            if($_REQUEST['list']=="1"){
+                header("Location: /admin/clientlist.php");
+            }
             break;
-        case "res":
+        case "resetpass":
             ResetPassword($_REQUEST['uid']);
+            if($_REQUEST['list']=="1"){
+                header("Location: /admin/clientlist.php");
+            }
             break;
     }
 ?>

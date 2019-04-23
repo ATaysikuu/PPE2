@@ -1,5 +1,4 @@
 <?php
-
     /**
      * Below are functions related to user management
      */
@@ -27,11 +26,29 @@
         $req->execute(['newpass'=>$newpass]);
         header('Location: /admin/client.php?uid='.$id.'&result=ok');
     }
+    //reactivates the user (sets status to 1)
+    function ReactivateUser($id){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        //set user status to active
+        if(CheckAdmin($_SESSION['pseudo'])){
+            $reqDeleteUser=$bdd->query('UPDATE members SET statut="1" WHERE id_member="'.$id.'"');
+        }
+    }
+    //deactivates the user (sets status to 0)
+    function DeactivateUser($id){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        //set user status to disabled
+        if(CheckAdmin($_SESSION['pseudo'])){
+            $reqDeleteUser=$bdd->query('UPDATE members SET statut="0" WHERE id_member="'.$id.'"');
+        }
+    }
     //removes the user from the database
     function DeleteUser($id){
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
-        //set user status to deleted
-        $reqDeleteUser=$bdd->query('UPDATE members SET statut="0" WHERE id_member="'.$id.'"');
+        //remove user from the database. Status needs to be 0 already
+        if(CheckUserActive($id)=="0"){
+            $reqDeleteUser=$bdd->query('DELETE FROM members WHERE id_member="'.$id.'"');
+        }
     }
     //return the rights of the user (admin, pro or client)
     function UserRole($id){ 
@@ -58,6 +75,15 @@
         elseif($result['role']=="0"){
             return true;
         }
+    }
+    //check if the user is active or not
+    function CheckUserActive($id){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->prepare('SELECT statut FROM members WHERE id_member=:id');
+        $req->execute(array('id'=>$id));
+        $result = $req->fetch();
+
+        return $result['statut'];
     }
     //Generates a random password
     function GeneratePassword($length = 8) {
@@ -118,6 +144,10 @@
          if(CheckAdmin($_SESSION['pseudo'])){
             $req=$bdd->query('DELETE FROM articles WHERE id_article="'.$id.'"');
          }
+     }
+     //Update a course
+     function UpdateCourse($id){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
      }
      //returns an array containing ALL AND EVERY course of the pro. Validated or not.
      function GetAllCoursesPro($uid){

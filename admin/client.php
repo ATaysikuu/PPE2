@@ -79,28 +79,26 @@
 <script src="/js/jquery331.js"></script>
 <script>
 		$("#updateuser").click(function(e) {
-			console.log('srfg');
 			e.preventDefault();
 			$.ajax({
 				type: 'POST',
-				url: '/php/usermanagement.php?uid=<?php echo($clientInfo["id_member"])?>&action=up',
-				data: $('formuserinfo').serialize(),
+				url: '/php/usermanagement.php?uid=<?php echo($clientInfo["id_member"])?>&action=update&list=0',
+				data: $(formuserinfo).serialize(),
 				success: function() {
 					console.log("Successful");
 					document.getElementById('operationstatus').innerHTML="User info successfully updated.";
 				},
 				error: function() {
-					console.log("Signup was unsuccessful");
+					console.log("ERROR");
 				}
 			});
 		});
 		$("#deleteuser").click(function(e) {
-			console.log('srfg');
 			e.preventDefault();
 			$.ajax({
 				type: 'POST',
-				url: '/php/usermanagement.php?uid=<?php echo($clientInfo["id_member"])?>&action=del',
-				data: $('formuserinfo').serialize(),
+				url: '/php/usermanagement.php?uid=<?php echo($clientInfo["id_member"])?>&action=deactivate&list=0',
+				data: $(),
 				success: function() {
 					console.log("user deactivated");
 					document.getElementById('operationstatus').innerHTML="User successfully deactivated.";
@@ -111,12 +109,11 @@
 			});
 		});
 		$("#resetpass").click(function(e) {
-			console.log('srfg');
 			e.preventDefault();
 			$.ajax({
 				type: 'POST',
-				url: '/php/usermanagement.php?uid=<?php echo($clientInfo["id_member"])?>&action=res',
-				data: $('formuserinfo').serialize(),
+				url: '/php/usermanagement.php?uid=<?php echo($clientInfo["id_member"])?>&action=resetpass&list=0',
+				data: $(),
 				success: function() {
 					console.log("user password updated");
 					document.getElementById('operationstatus').innerHTML="User password successfully reset.";
