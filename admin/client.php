@@ -26,7 +26,7 @@
 						require($_SERVER['DOCUMENT_ROOT'].'/php/config.php');
 						$query=$bdd->query('SELECT id_member, pseudo_member, firstName_member,lastName_member,residence_member,paypal_member,zipcode_member,city_member,mail_member FROM members WHERE id_member="'.$_GET['uid'].'"'); 
 						$clientInfo=$query->fetch();
-						?> <!-- recuperer les donnees du client avec l'id entrer -->
+						?> <!-- recuperer les donnees du client avec l'id entré -->
 					<form action="/php/usermanagement.php?uid=<?php echo($clientInfo['id_member'])?>&action=up" method="POST" id="formuserinfo">
 						<div class="form-group row">
 							<div class="col-md-6">
@@ -53,24 +53,21 @@
 						<div class="row">
 							<div class="col-md-4">
 							<!--TODO-->
-								<?php echo ('<input type="submit" name="update" class="button" value="Sauvegarder"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?>
+								<?php //echo ('<input type="submit" name="update" class="button" value="Sauvegarder"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?>
+								<button class="button" id="updateuser" onClick="updateuser">Update</button>
 							</div>
 							<div class="col-md-4">
-								<?php echo ('<a href="/php/usermanagement.php?uid='.$clientInfo["id_member"].'&action=del"><input type="button" name="delete" class="button" value="Supprimer"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?>
+								<?php //echo ('<a href="/php/usermanagement.php?uid='.$clientInfo["id_member"].'&action=del"><input type="button" name="delete" class="button" value="Supprimer"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?>
+								<button class="button" id="deleteuser" onClick="deleteuser">Delete</button>
 							</div>
 							<!--TODO-->
 							<div class="col-md-4">
-								<?php echo ('<a href="/php/usermanagement.php?uid='.$clientInfo["id_member"].'&action=res"><input type="button" name="delete" class="button" value="Reset pass"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?>
+								<?php //echo ('<a href="/php/usermanagement.php?uid='.$clientInfo["id_member"].'&action=res"><input type="button" name="delete" class="button" value="Reset pass"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?>
+								<button class="button" id="resetpass" onClick="resetpass">Reset password</button>
 							</div>
 						</div>
 						<div class="row">
-							<?php 
-								if (isset($_GET['result'])){
-									if($_GET['result']=="ok"){
-											echo('<p>Utilisateur mis à jour!</p>');
-									}
-								}
-							?>
+							<div id="operationstatus"></div>
 						</div>
 					</form>
 				</div>
@@ -81,19 +78,54 @@
 </body>
 <script src="/js/jquery331.js"></script>
 <script>
-	$(function(){
-		$('formuserinfo').on('submit', function(e){
+		$("#updateuser").click(function(e) {
+			console.log('srfg');
 			e.preventDefault();
 			$.ajax({
-				type:'post',
-				url:'/php/usermanagement.php?action=up',
-				data:$('formuserinfo').serialize(),
-				success: function(){
-					alert('user updated');
+				type: 'POST',
+				url: '/php/usermanagement.php?uid=<?php echo($clientInfo["id_member"])?>&action=up',
+				data: $('formuserinfo').serialize(),
+				success: function() {
+					console.log("Successful");
+					document.getElementById('operationstatus').innerHTML="User info successfully updated.";
+				},
+				error: function() {
+					console.log("Signup was unsuccessful");
 				}
 			});
 		});
-	});
+		$("#deleteuser").click(function(e) {
+			console.log('srfg');
+			e.preventDefault();
+			$.ajax({
+				type: 'POST',
+				url: '/php/usermanagement.php?uid=<?php echo($clientInfo["id_member"])?>&action=del',
+				data: $('formuserinfo').serialize(),
+				success: function() {
+					console.log("user deactivated");
+					document.getElementById('operationstatus').innerHTML="User successfully deactivated.";
+				},
+				error: function() {
+					console.log("Signup was unsuccessful");
+				}
+			});
+		});
+		$("#resetpass").click(function(e) {
+			console.log('srfg');
+			e.preventDefault();
+			$.ajax({
+				type: 'POST',
+				url: '/php/usermanagement.php?uid=<?php echo($clientInfo["id_member"])?>&action=res',
+				data: $('formuserinfo').serialize(),
+				success: function() {
+					console.log("user password updated");
+					document.getElementById('operationstatus').innerHTML="User password successfully reset.";
+				},
+				error: function() {
+					console.log("error");
+				}
+			});
+		});
 </script>
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/footer.php') ?>
 </html>
