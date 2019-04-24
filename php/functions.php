@@ -1,7 +1,8 @@
 <?php
-    /**
-     * Below are functions related to user management
-     */
+
+    /**************************************************/
+    /* Below are functions related to user management */
+    /**************************************************/
     
     function AddUser($userData){ //takes an array containing all data required to sign an user up
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
@@ -100,6 +101,13 @@
 
 
 
+    //Return an array containing all ACTIVE pros (where role = 1 && status = 1)
+    function GetPros(){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->query('SELECT id_member, pseudo_member, firstName_member, lastName_member FROM members WHERE role="1" && statut="1"'); //get all ACTIVE pros
+        $result=$req->fetchAll();
+        return $result;
+    }
     //Return an array containing all ACTIVE clients (where role = 2 && status = 1)
     function GetClients(){
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
@@ -115,39 +123,57 @@
         return $result;
     }
 
-    //Return an array containing all ACTIVE pros (where role = 1 && status = 1)
-    function GetPros(){
+
+
+    /*********************/
+    /* Course management */
+    /*********************/
+
+    //Returns an array containing all categories
+    function GetCategories(){
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
-        $req=$bdd->query('SELECT id_member, pseudo_member, firstName_member, lastName_member FROM members WHERE role="1" && statut="1"'); //get all ACTIVE pros
+        $req=$bdd->prepare('SELECT * FROM categories');
+        $req->execute();
         $result=$req->fetchAll();
         return $result;
     }
-
-
-    /**
-     * Course management
-     */
-
+    //returns the id of a specific category
+    function GetCategoryId($categName){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->query('SELECT id_category FROM categories WHERE name_category="'.$categName.'"');
+        $result=$req->fetch();
+        return($result['id_category']);
+    }
      //add a new course to the DB. Takes an array containing all the data of this course.
      function AddCourse($courseData){
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
         $req=$bdd->prepare('INSERT INTO articles(`id_seller`, `id_category`, `date_article`, `name_article`, `description_article`, `price_article`, `validation`)
                             VALUES(:idseller,:idcateg,:date,:name,:desc,:price,:validation)');
-        print_r($courseData);
-        echo($courseData['idcateg']);
         $req->execute($courseData);
-        echo(GetUnvalidatedCourses());
      }
      //remove a course from the DB.
      function DeleteCourse($id){
          require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
-         if(CheckAdmin($_SESSION['pseudo'])){
             $req=$bdd->query('DELETE FROM articles WHERE id_article="'.$id.'"');
-         }
      }
      //Update a course
-     function UpdateCourse($id){
+     function UpdateCourse($courseData){
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->prepare('UPDATE articles 
+                            SET name_article=:formationname, price_article=:formationprice, id_category=:formationcategory, description_article=:formationcontent 
+                            WHERE id_article=:idformation');
+        $req->execute($courseData);
+     }
+     //returns an array containing ALL AND EVERY course in the database. Validated or not.
+     function GetCourse($idcourse){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        if(CheckAdmin($_SESSION['pseudo'])){
+            $req=$bdd->prepare('SELECT DISTINCT articles.id_article, articles.name_article, articles.date_article, articles.description_article, articles.price_article, members.pseudo_member 
+                                FROM `articles` INNER JOIN members ON articles.id_seller=members.id_member WHERE articles.id_article=:idformation'); //get the requested course
+            $req->execute(array('idformation'=>$idcourse));
+            $result=$req->fetch();
+            return $result;
+        }
      }
      //returns an array containing ALL AND EVERY course of the pro. Validated or not.
      function GetAllCoursesPro($uid){
@@ -186,6 +212,14 @@
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
         if(CheckAdmin($_SESSION['pseudo'])){
             $req=$bdd->query('UPDATE articles SET validation="1" WHERE id_article="'.$courseID.'"');
+        }
+        else echo("NOT ADMIN.");
+     }
+     //set articles.validation to 0
+     function UnValidateCourse($courseID){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        if(CheckAdmin($_SESSION['pseudo'])){
+            $req=$bdd->query('UPDATE articles SET validation="0" WHERE id_article="'.$courseID.'"');
         }
         else echo("NOT ADMIN.");
      }
