@@ -51,14 +51,11 @@
                       ");
                   }
               ?>
-            <div id="icones"> <!-- icones pour Professionnel et Client -->
-                
-                <a href="pro/index.php" target="_blank"><input type="button" value="Professionnel"></a>
-                <a href="client/index.php" target="_blank"><input type="button" value="Client"></a>
-                
+           
+            <div class="presentation">
+              <h2>Présentation Sellit blablablabla</h2>
             </div>
             
-            <a href="product.php?article=2">test</a>
         </div> <!-- wrapper-->
         
     

@@ -3,7 +3,7 @@
 <html>
 <head>
 	<title>Formation achetee par le client</title>
-<!-- faire une page pour les formatons achetees du client -->
+
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
@@ -11,7 +11,7 @@
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php') ?>
 <body>
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/config.php') ?>
-	<div class="container">
+	<div class="container"> <!-- CONTENU DE LA FORMATION -->
 		<div class="wrapper">
 			<h2><!-- afficher le nom de la formation -->
                                 Formation:
