@@ -7,8 +7,6 @@
         if (isset($_POST['pseudo'])&&isset($_POST['pass'])){
             $pseudoEntre = $_POST['pseudo'];
             $passEntre = $_POST['pass'];
-            echo($pseudoEntre);
-            echo($passEntre);
             //execute our request ONLY if the requested variables are set. 
             $req->execute(array('pseudoReq' => $pseudoEntre, 'passReq' => $passEntre));
 

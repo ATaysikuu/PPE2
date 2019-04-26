@@ -29,9 +29,30 @@
 			</div>
 			<div id="formation_price" class="row">
 				<p>Prix: <?php echo($courseData['price_article'])?></p>
+			</div>
+			<div class="row">
+				<button id="addtobasket" onClick="addtobasket()">Add to basket</button>
+			</div>
+			<div id="operationstatus"></div>
 		</div>
-            </div>
 	</div>
 </body>
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/footer.php') ?>
+<script src="/js/jquery331.js"></script>
+<script>
+function addtobasket() {
+	$.ajax({
+		type: 'POST',
+		url: '/php/basketmanagement.php?id=<?php echo $_GET['id']?>&action=addtobasket',
+		data: $(),
+		success: function() {
+			console.log("Successful");
+			document.getElementById('operationstatus').innerHTML="Course added to your basket.";
+		},
+		error: function() {
+			console.log("ERROR");
+		}
+	});
+};
+</script>
 </html>

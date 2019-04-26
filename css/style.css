@@ -1,6 +1,16 @@
 /*******************************************************/
 /************************* HEADER *********************/
 /********************************************************/
+#header{
+	z-index: 999;
+	position: fixed;
+	top:1%;
+}
+.logo{
+	position: absolute;
+	top:1%;
+	left:1%; 	
+}
 #header .logo{
 	float:left !important;
 	position: relative;
@@ -11,10 +21,6 @@
 #menu{
 	position:fixed;
 	right:10px;
-}
-.container{
-	position:fixed !important;
-	top:3px !important;
 }
 /**********************************************************/
 /************************* FIN HEADER *********************/
@@ -36,5 +42,5 @@
 /****index*****/
 .wrapper{
 	margin-top:13% !important; 
-	margin-left:50% !important;
+	margin-left:10% !important;
 }

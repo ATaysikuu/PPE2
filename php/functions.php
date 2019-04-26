@@ -181,13 +181,11 @@
      //returns an array containing ALL AND EVERY course in the database. Validated or not.
      function GetCourse($idcourse){
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
-        if(CheckAdmin($_SESSION['pseudo'])){
-            $req=$bdd->prepare('SELECT DISTINCT articles.id_article, articles.name_article, articles.date_article, articles.description_article, articles.price_article, members.pseudo_member 
-                                FROM `articles` INNER JOIN members ON articles.id_seller=members.id_member WHERE articles.id_article=:idformation'); //get the requested course
-            $req->execute(array('idformation'=>$idcourse));
-            $result=$req->fetch();
-            return $result;
-        }
+        $req=$bdd->prepare('SELECT DISTINCT articles.id_article, articles.name_article, articles.date_article, articles.description_article, articles.price_article, members.pseudo_member 
+                            FROM `articles` INNER JOIN members ON articles.id_seller=members.id_member WHERE articles.id_article=:idformation'); //get the requested course
+        $req->execute(array('idformation'=>$idcourse));
+        $result=$req->fetch();
+        return $result;
      }
      //returns an array containing ALL AND EVERY course of the pro. Validated or not.
      function GetAllCoursesPro($uid){
@@ -237,5 +235,45 @@
             $req=$bdd->query('UPDATE articles SET validation="0" WHERE id_article="'.$courseID.'"');
         }
         else echo("NOT ADMIN.");
+     }
+
+
+     /********************/
+     /* BASKET MANAGEMENT*/
+     /********************/
+
+     //add a course to the basket
+     function AddToBasket($id, $uid){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $checkDuplicate=$bdd->prepare('SELECT COUNT(*) FROM basket WHERE id_article=:id AND id_client=:uid');
+        $checkDuplicate->execute(array(
+            'id'=>$id,
+            'uid'=>$uid));
+        $duplicate=$checkDuplicate->fetch();
+        if($duplicate[0]=="0"){
+            $req=$bdd->prepare('INSERT INTO basket (id_article, id_client) VALUES(:id,:uid)');
+            $req->execute(array(
+                'id'=>$id,
+                'uid'=>$uid));
+        }
+     }
+     //remove a course from the basket
+     function RemoveFromBasket($id){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->prepare('DELETE FROM basket WHERE id_basket=:id');
+        $req->execute(array('id'=>$id));
+     }
+     //returns an array containing the content of the client's basket
+     function GetBasket($uid){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->prepare('SELECT ');
+     }
+     //returns number of elements in basket
+     function GetBasketSize($uid){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->prepare('SELECT COUNT(*) FROM basket where id_client=:uid');
+        $req->execute(array('uid'=>$uid));
+        $result=$req->fetch();
+        return $result;
      }
 ?>

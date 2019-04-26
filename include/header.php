@@ -1,6 +1,7 @@
 <?php
 	require_once($_SERVER['DOCUMENT_ROOT']."/php/functions.php");
 	if(isset($_SESSION['id'])){
+
 		switch(UserRole($_SESSION['id'])){
 			case "0":
 				echo('
@@ -44,6 +45,7 @@
 				');
 				break;
 			case "2":
+				$basketSize=GetBasketSize($_SESSION['id']);
 				echo('
 				<div class="container">
 					<div id="header">
@@ -53,8 +55,8 @@
 						<div id="menu">
 							<h2>MENU</h2>
 							<a href="/client/formationlist.php">Mes Formations</a>
-							<a href="/client/formationlist.php">Toutes les Formations</a>
-							<a href="/basket.php">Panier</a>
+							<a href="/formationlist.php">Toutes les Formations</a>
+							<a href="/basket.php">Panier (');echo($basketSize[0]);echo(')</a>
 							<a href="/contact.php">Contact</a>
 							<a href="/php/logout.php">Déconnexion ('.$_SESSION['pseudo'].')</a>
 						</div>
