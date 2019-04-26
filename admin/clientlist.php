@@ -3,6 +3,8 @@
 	if(!CheckAdmin($_SESSION['pseudo'])){
 		header("Location: /");
 	}
+	$clientList=GetClients();
+	$inactiveClientList=GetInactiveClients();
 ?>
 
 <!DOCTYPE html>
@@ -31,8 +33,6 @@
 							<td>Modifier</td>
 						<tr>
 						<?php
-							require_once($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
-							$clientList=GetClients();
 							foreach($clientList as $client){ //for each client in the returned array, print its name in html + button to delete it
 						?>
 						<tr>
@@ -59,8 +59,6 @@
 							<td>Suppression définitive</td>
 						<tr>
 						<?php
-							require_once($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
-							$inactiveClientList=GetInactiveClients();
 							foreach($inactiveClientList as $client){ //for each client in the returned array, print its name in html + button to delete it
 						?>
 						<tr>

@@ -3,51 +3,77 @@
 	if(!CheckAdmin($_SESSION['pseudo'])){
 		header("Location: /");
 	}
+	$clientList=GetPros();
+	$inactiveClientList=GetInactivePros();
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>page admin liste professionnels</title>
+	<title>page admin liste pros</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
-	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 </head>
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php') ?>
 <body>
-	<?php include '../php/config.php' ?>
-
 	<div class="container">
 		<div class="wrapper">
-			<h2>Liste des professionnels</h2>
-			<div id="listpro_manage" class="row">
+			<h2>Liste des clients</h2>
+			<div id="listclient_manage" class="row">
 			
-			<div class="prolist col-md-6">
-				<ul>
+				<div class="clientlist col-md-6">					
 					<table>
+							<th colspan="5">Pros actifs</th></tr>
 						<tr>
 							<td>Pseudo</td>
 							<td>Prénom</td>
 							<td>Nom</td>
-							<td>Suppression</td>
+							<td>Désactiver</td>
+							<td>Modifier</td>
+							<td>Formations
 						<tr>
 						<?php
-							require_once($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
-							$prosList=GetPros();
-							foreach($prosList as $pro){ //for each pro in the returned array, print its name in html + button to delete it
+							foreach($clientList as $client){ //for each client in the returned array, print its name in html + button to delete it
 						?>
 						<tr>
-							<td><?php echo ($pro['pseudo_member']);?></td>
-							<td><?php echo ($pro['firstName_member']);?></td>
-							<td><?php echo ($pro['lastName_member']);?></td>
-							<td><?php echo ('<a href="/php/usermanagement.php?uid='.$pro["id_member"].'&action=del"><input type="button" name="delete" class="button" value="Supprimer"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?></td>
-							<td><?php echo ('<a href="/admin/professional.php?uid='.$pro["id_member"].'"><input type="button" name="edit" class="button" value="Modifier"><!-- bouton edition --></a><!-- bouton edition client -->');?></td>
+							<td><?php echo ($client['pseudo_member']);?></td>
+							<td><?php echo ($client['firstName_member']);?></td>
+							<td><?php echo ($client['lastName_member']);?></td>
+							<td><?php echo ('<a href="/php/usermanagement.php?uid='.$client["id_member"].'&action=deactivate&prolist=1"><input type="button" name="delete" class="button" value="Désactiver"></a>');?></td>
+							<td><?php echo ('<a href="/admin/professional.php?uid='.$client["id_member"].'"><input type="button" name="edit" class="button" value="Modifier"></a>');?></td>
 						</tr>
 						<?php
 							}
 						?>
 					</table>
-				</ul>
+			</div>
+				<div class="clientlist col-md-6">					
+					<table>
+						<th colspan="5">Pros inactifs</th>
+						<tr>
+							<td>Pseudo</td>
+							<td>Prénom</td>
+							<td>Nom</td>
+							<td>Activer</td>
+							<td>Modifier</td>
+							<td>Suppression définitive</td>
+						<tr>
+						<?php
+							foreach($inactiveClientList as $client){ //for each client in the returned array, print its name in html + button to delete it
+						?>
+						<tr>
+							<td><?php echo ($client['pseudo_member']);?></td>
+							<td><?php echo ($client['firstName_member']);?></td>
+							<td><?php echo ($client['lastName_member']);?></td>
+							<td><?php echo ('<a href="/php/usermanagement.php?uid='.$client["id_member"].'&action=reactivate&prolist=1"><input type="button" name="reactivate" class="button" value="Réactiver"></a>');?></td>
+							<td><?php echo ('<a href="/php/usermanagement.php?uid='.$client["id_member"].'&action=delete&prolist=1"><input type="button" name="delete" class="button" value="Supprimer"></a>');?></td>
+							<td><?php echo ('<a href="/admin/client.php?uid='.$client["id_member"].'"><input type="button" name="edit" class="button" value="Modifier"></a>');?></td>
+						</tr>
+						<?php
+							}
+						?>
+					</table>
 			</div>
 		</div>
 	</div>

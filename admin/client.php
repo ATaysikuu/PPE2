@@ -17,8 +17,9 @@
 <body>
 	<div class="container">
 		<div class="wrapper">
+			
+			<h3 class="row">Renseignements sur le client</h3>
 			<div id="infos_client" class="row">
-			<h3>Renseignements sur le client</h3>
 				<!-- recuperer l'id du client -->
 				<div class="client">
 					<!--  php renseignements pro à voir avec table membres admin=2 + formation achetee en formulaire -->
@@ -30,7 +31,7 @@
 					<form action="/php/usermanagement.php?uid=<?php echo($clientInfo['id_member'])?>&action=up" method="POST" id="formuserinfo">
 						<div class="form-group row">
 							<div class="col-md-6">
-								<label for="firstname">Pseudo: </label><br />
+								<label for="pseudo">Pseudo: </label><br />
 								<label for="firstname">First Name: </label><br />
 								<label for="lastname">Last Name: </label><br />
 								<label for="paypal">Paypal Adress: </label><br />

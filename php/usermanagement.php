@@ -7,17 +7,26 @@ session_start();
             if($_REQUEST['list']=="1"){
                 header("Location: /admin/clientlist.php");
             }
+            if($_REQUEST['prolist']=="1"){
+                header("Location: /admin/prolist.php");
+            }
             break;
         case "reactivate":
             ReactivateUser($_REQUEST['uid']);
             if($_REQUEST['list']=="1"){
                 header("Location: /admin/clientlist.php");
             }
+            if($_REQUEST['prolist']=="1"){
+                header("Location: /admin/prolist.php");
+            }
             break;
         case "delete":
             DeleteUser($_REQUEST['uid']);
             if($_REQUEST['list']=="1"){
                 header("Location: /admin/clientlist.php");
+            }
+            if($_REQUEST['prolist']=="1"){
+                header("Location: /admin/prolist.php");
             }
             break;
         case "update":
@@ -35,11 +44,17 @@ session_start();
             if($_REQUEST['list']=="1"){
                 header("Location: /admin/clientlist.php");
             }
+            if($_REQUEST['prolist']=="1"){
+                header("Location: /admin/prolist.php");
+            }
             break;
         case "resetpass":
             ResetPassword($_REQUEST['uid']);
             if($_REQUEST['list']=="1"){
                 header("Location: /admin/clientlist.php");
+            }
+            if($_REQUEST['prolist']=="1"){
+                header("Location: /admin/prolist.php");
             }
             break;
     }

@@ -4,7 +4,8 @@
     /* Below are functions related to user management */
     /**************************************************/
     
-    function AddUser($userData){ //takes an array containing all data required to sign an user up
+    //takes an array containing all data required to sign an user up
+    function AddUser($userData){ 
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
         //prepare the request that will insert the new user in the database
         $req=$bdd->prepare('INSERT INTO `members` (`firstName_member`, `lastName_member`, `residence_member`, `paypal_member`, `registrationDate_member`, `pseudo_member`, `password`, `role`, `zipcode_member`, `city_member`, `mail_member`, `statut`) 
@@ -17,7 +18,7 @@
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
         $req=$bdd->prepare('UPDATE members SET pseudo_member=:pseudo, firstName_member=:name, lastName_member=:surname, paypal_member=:paypal, mail_member=:email, residence_member=:residence, zipcode_member=:zipcode,city_member=:city WHERE id_member="'.$uid.'"');
         $req->execute($userData);
-        header('Location: /admin/client.php?uid='.$uid.'&result=ok');
+        //header('Location: /admin/client.php?uid='.$uid.'&result=ok&'.print_r($userData));
     }
     //asks for a random string and use it to reset the user password
     function ResetPassword($id){
@@ -87,7 +88,7 @@
         return $result['statut'];
     }
     //Generates a random password
-    function GeneratePassword($length = 8) {
+    function GeneratePassword($length = 80) {
         $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         $count = mb_strlen($chars);
     
@@ -100,11 +101,24 @@
     }
 
 
-
+    //return the requested user
+    function GetUser($uid){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->query('SELECT id_member, pseudo_member, firstName_member,lastName_member,residence_member,paypal_member,zipcode_member,city_member,mail_member FROM members WHERE id_member="'.$uid.'"');
+        $result=$req->fetch();
+        return $result; 
+    }
     //Return an array containing all ACTIVE pros (where role = 1 && status = 1)
     function GetPros(){
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
         $req=$bdd->query('SELECT id_member, pseudo_member, firstName_member, lastName_member FROM members WHERE role="1" && statut="1"'); //get all ACTIVE pros
+        $result=$req->fetchAll();
+        return $result;
+    }
+    //Return an array containing all ACTIVE pros (where role = 1 && status = 1)
+    function GetInactivePros(){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->query('SELECT id_member, pseudo_member, firstName_member, lastName_member FROM members WHERE role="1" && statut="0"'); //get all ACTIVE pros
         $result=$req->fetchAll();
         return $result;
     }
