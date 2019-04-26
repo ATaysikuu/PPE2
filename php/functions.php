@@ -217,7 +217,8 @@
      //returns an array containing all courses validated.
      function GetValidatedCourses(){
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
-        $req=$bdd->query('SELECT id_article, name_article, description_article FROM articles WHERE validation="1"'); //get all validated courses
+        $req=$bdd->query('SELECT DISTINCT members.pseudo_member, id_article, name_article, description_article 
+                            FROM articles INNER JOIN members on members.id_member=articles.id_seller WHERE validation="1" '); //get all validated courses
         $result=$req->fetchAll();
         return $result;
      }
