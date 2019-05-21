@@ -1,37 +1,34 @@
 <?php
 session_start(); //creating session
 require_once($_SERVER['DOCUMENT_ROOT']."/php/functions.php");
+if(isset($_SESSION)){
+    $uid=$_SESSION['id'];
+		if(!(UserRole($uid)=="0"||UserRole($uid)=="1")){
+			header('Location: /');
+		}
+	}
+	else header('Location: /');
 try {
-    echo($_POST['fcateg']);
+    //echo($_POST['fcateg']);
     /** check if the requested variables are set or not. if not, skip. */
-    if (isset($_POST['fname']) && //name of the course
-        isset($_POST['fcateg'])&& //category of the course
-        isset($_POST['fdescription']) && //description of the course
-        isset($_POST['fprice'])){ //well, price of the bloody course
+    if (isset($_POST['title']) && //name of the course
+        isset($_POST['price'])&& //category of the course
+        isset($_POST['categ']) && //description of the course
+        isset($_POST['desc'])){ //well, price of the bloody course
 
-            require_once($_SERVER['DOCUMENT_ROOT']."/php/config.php"); //get config file with db info
-            //get category id
-            $reqGetIDCateg=$bdd->query('SELECT id_category FROM categories WHERE name_category = "'.$_POST['fcateg'].'"');
-            $resultId=$reqGetIDCateg->fetch();
-            $IDCateg=$resultId['id_category'];
-
-            //create array with data to insert in our main request.
-            $insertData = [
-                'idseller'=> $_SESSION['id'],
-                'idcateg'=>$IDCateg,
+            $insertData=[
+                'idseller'=>$uid,
+                'idcateg'=>GetCategoryId($_POST['categ']),
                 'date'=>date("Y-m-d"),
-                'name'=>$_POST['fname'],
-                'desc'=>$_POST['fdescription'],
-                'price'=>$_POST['fprice'],
+                'name'=>$_POST['title'],
+                'desc'=>$_POST['desc'],
+                'price'=>$_POST['price'],
                 'validation'=>"0"
             ];
-            
             AddCourse($insertData);
-            //execute the insert request with the array
-            //$req->execute($insertData);
+            header('Location: /pro/formationlist.php');
     }
     
 } catch (Exception $ex) {
-
+echo $ex;
 }
-//header("Location: /");

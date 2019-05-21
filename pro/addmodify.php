@@ -1,4 +1,15 @@
 <?php session_start() ?>
+<?php 
+	require_once($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
+	if(isset($_SESSION['id'])){
+		$uid=$_SESSION['id'];
+		if(!(UserRole($uid)=="0"||UserRole($uid)=="1")){
+			header('Location: /');
+		}
+	}
+	else header('Location: /');
+	$categorieslist=GetCategories();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,23 +23,26 @@
 	<div class="container">
 		<div class="wrapper">
 			<div id="form_formation">
-				<form action="/addmodify.php" method=POST>
-	  				Nom de la formation:<br>
-	  			<input type="text" name="firstname" value="">
-	  			<br>
-	  				Date de la formation:<br>
-	  			<input type="text" name="lastname" value="">
-	 			 <br>
-	 			 	Professionnel:<br>
-	  			<input type="text" name="lastname" value="">
-	 			 <br><br>
-	 				 Catégorie:<br>
-	  			<input type="checkbox" name="lastname" value=""> Développement
-	 			 <br>
-	 			 <input type="checkbox" name="lastname" value=""> Réseaux
-	 			 <br><br><br>
-	 			 <!-- PHP HERE POUR METTRE LA CATEGORIE -->
-	  			<input type="submit" value="Enregistrer">
+				<form id="formaddformation" method="POST" action="/php/addproduct_action.php">
+					<div class="form-group row">
+						<div class="col-md-3">
+							<label for="title">Titre de la formation: </label><br />
+							<label for="price">Prix de la formation: </label><br />
+							<label for="categ">Catégorie de la formation: </label><br />
+							<label for="desc">Description de la formation: </label><br />
+						</div>
+						<div class="col-md-6">
+							<input type="text" name="title" placeholder="Titre..."><br />
+							<input type="text" name="price" placeholder="Prix..."><br />
+							<select name="categ">
+								<?php foreach($categorieslist as $category){ ?>
+									<option name="<?php echo($category['name_category'])?>"><?php echo($category['name_category'])?></option><br />
+								<?php } ?>
+							</select><br/>
+							<textarea name="desc" rows="4" cols="50" placeholder="Description..."></textarea><br />
+						</div>
+					</div>
+					<input type="submit" value="Enregistrer">
 				</form> 
 			</div>
 		</div><!-- wrapper-->

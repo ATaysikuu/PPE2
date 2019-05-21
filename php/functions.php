@@ -178,7 +178,7 @@
                             WHERE id_article=:idformation');
         $req->execute($courseData);
      }
-     //returns an array containing ALL AND EVERY course in the database. Validated or not.
+     //returns the requested course. Validated or not.
      function GetCourse($idcourse){
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
         $req=$bdd->prepare('SELECT DISTINCT articles.id_article, articles.name_article, articles.date_article, articles.description_article, articles.price_article, members.pseudo_member 
@@ -187,10 +187,11 @@
         $result=$req->fetch();
         return $result;
      }
-     //returns an array containing ALL AND EVERY course of the pro. Validated or not.
-     function GetAllCoursesPro($uid){
+     //returns an array containing the courses bought by the user
+     function GetCoursesUser($uid){
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
-        $req=$bdd->query('SELECT id_article, name_article, description_article FROM articles WHERE id_seller="'.$uid.'"'); //get all courses, validated or not
+        $req=$bdd->prepare('SELECT DISTINCT articles.id_article, articles.name_article, articles.description_article FROM articles INNER JOIN soldarticles on soldarticles.id_article=articles.id_article INNER JOIN members WHERE soldarticles.id_buyer=:uid');
+        $req->execute(array('uid'=>$uid));
         $result=$req->fetchAll();
         return $result;
      }
@@ -220,6 +221,13 @@
         $result=$req->fetchAll();
         return $result;
      }
+     //returns an array containing ALL AND EVERY course of the pro. Validated or not.
+     function GetAllCoursesPro($uid){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->query('SELECT id_article, name_article, description_article, date_article, price_article, validation FROM articles WHERE id_seller="'.$uid.'"'); //get all courses, validated or not
+        $result=$req->fetchAll();
+        return $result;
+     }
      //set articles.validation to 1
      function ValidateCourse($courseID){
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
@@ -235,6 +243,18 @@
             $req=$bdd->query('UPDATE articles SET validation="0" WHERE id_article="'.$courseID.'"');
         }
         else echo("NOT ADMIN.");
+     }
+     //checks if an user has bought this course or not. Returns true if he did buy the formation, false otherwise
+     function UserHasCourse($courseID, $uid){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->prepare('SELECT COUNT(*) FROM soldarticles WHERE id_article=:courseid AND id_buyer=:uid');
+        $req->execute(array(
+            'courseid'=>$courseID,
+            'uid'=>$uid
+        ));
+        $bought=$req->fetch();
+        if($bought[0]!="0") return true;
+        return false;
      }
 
 
@@ -258,15 +278,29 @@
         }
      }
      //remove a course from the basket
-     function RemoveFromBasket($id){
+     function RemoveFromBasket($id, $uid){
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
-        $req=$bdd->prepare('DELETE FROM basket WHERE id_basket=:id');
-        $req->execute(array('id'=>$id));
+        $req=$bdd->prepare('DELETE FROM basket WHERE id_article=:id AND id_client=:uid');
+        $req->execute(array(
+            'id'=>$id,
+            'uid'=>$uid
+        ));
+     }
+     //empties the user's basket
+     function EmptyBasket($uid){
+        $basketContent=GetBasket($uid);
+        foreach($basketContent as $element){
+            RemoveFromBasket($element['id_article'],$uid);
+        }
      }
      //returns an array containing the content of the client's basket
      function GetBasket($uid){
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
-        $req=$bdd->prepare('SELECT ');
+        $req=$bdd->prepare('SELECT DISTINCT articles.id_article, articles.name_article, articles.description_article, articles.price_article 
+                            FROM articles INNER JOIN basket on basket.id_article=articles.id_article INNER JOIN members WHERE members.id_member=:uid');
+        $req->execute(array('uid'=>$uid));
+        $result=$req->fetchAll();
+        return $result;
      }
      //returns number of elements in basket
      function GetBasketSize($uid){
@@ -275,5 +309,37 @@
         $req->execute(array('uid'=>$uid));
         $result=$req->fetch();
         return $result;
+     }
+     
+     /********************/
+     /* ORDERS MANAGEMENT*/
+     /********************/
+
+     //Add the course to the user's order history
+     function AddToOrderHistory($courseID, $uid){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->prepare('INSERT INTO orderhistory (id_buyer, id_course) VALUES (:courseid,:uid)');
+        $req->execute(array(
+            'courseid'=>$courseID,
+            'uid'=>$uid
+        ));
+     }
+     //Add the course to the orders history
+     function AddToSoldArticles($courseID, $uid){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->prepare('INSERT INTO soldarticles(id_article, id_buyer, date_order) VALUES(:courseid, :uid, :dateorder)');
+        $req->execute(array(
+            'courseid'=>$courseID,
+            'uid'=>$uid,
+            'dateorder'=>date("Y-m-d")
+        ));
+     }
+     //Add the basket's content in the list of course the user has bought
+     function BuyBasket($uid){
+        $basketContent=GetBasket($uid);
+        foreach ($basketContent as $element) {
+            AddToSoldArticles($element['id_article'],$uid);
+            RemoveFromBasket($element['id_article'],$uid);
+        }
      }
 ?>

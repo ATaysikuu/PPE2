@@ -3,8 +3,9 @@
 /********************************************************/
 #header{
 	z-index: 999;
-	position: fixed;
+	position: absolute;
 	top:1%;
+	height: 152px;
 }
 .logo{
 	position: absolute;
@@ -12,8 +13,7 @@
 	left:1%; 	
 }
 #header .logo{
-	float:left !important;
-	position: relative;
+	
 }
 #header .logo img{
 	width:60%;
@@ -43,4 +43,20 @@
 .wrapper{
 	margin-top:13% !important; 
 	margin-left:10% !important;
+}
+
+
+#basket{
+	margin: auto;
+	width: 90%;
+	position: relative;
+	border:1px solid;
+	justify-content: center;
+}
+#basket td{
+	margin: auto;
+	width: 100%;
+	position: relative;
+	border:1px solid;
+	justify-content: center;
 }

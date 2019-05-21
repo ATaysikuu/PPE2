@@ -1,7 +1,11 @@
 <?php session_start() ?>
 <?php 
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
-	$courseData=GetCourse($_GET['id']);
+	if(isset($_GET['id'])&&isset($_SESSION['id'])){
+		$courseData=GetCourse($_GET['id']);
+		$uid=$_SESSION['id'];
+	}
+	else header('Location: /');
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,20 +24,36 @@
 				<h5>Auteur: <?php echo($courseData['pseudo_member']);?>
 			</div>
 			<div id="formation_content" class="row">
-				<!-- php TCHOU POUR METTRE LE CONTENU DE LA FORMATION  -->
 				<h4>Contenu de la formation</h4><br/>
 				<p><?php echo($courseData['description_article'])?></p>
 			</div>
 			<div id="formation_date" class="row">
 				<p>Date de mise en ligne: <?php echo($courseData['date_article'])?></p>
 			</div>
-			<div id="formation_price" class="row">
-				<p>Prix: <?php echo($courseData['price_article'])?></p>
-			</div>
-			<div class="row">
-				<button id="addtobasket" onClick="addtobasket()">Add to basket</button>
-			</div>
-			<div id="operationstatus"></div>
+			<?php
+				if(UserRole($uid)!="2"){
+					echo('Veuillez vous connecter avec un compte client pour acheter ou visionner cette formation.');
+				}
+				else{
+					if(UserHasCourse($courseData['id_article'],$uid)){
+						echo('
+							PLACEHOLDER VIDEO
+						');
+					}
+					else {
+						echo("
+						<div id=\"formation_price\" class=\"row\">
+						<p>Prix: ".($courseData['price_article'])."</p>
+						</div>
+						<div class=\"row\">
+							<button id=\"addtobasket\" onClick=\"addtobasket()\">Add to basket</button>
+						</div>
+						<div id=\"operationstatus\"></div>
+						");
+					}
+				}
+				
+			?>
 		</div>
 	</div>
 </body>
@@ -43,7 +63,7 @@
 function addtobasket() {
 	$.ajax({
 		type: 'POST',
-		url: '/php/basketmanagement.php?id=<?php echo $_GET['id']?>&action=addtobasket',
+		url: '/php/basketmanagement.php?courseid=<?php echo $_GET['id']?>&action=addtobasket',
 		data: $(),
 		success: function() {
 			console.log("Successful");
