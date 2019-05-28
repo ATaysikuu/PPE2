@@ -4,6 +4,7 @@
 	if(!CheckAdmin($_SESSION['pseudo'])){
 		header("Location: /");
 	}
+	$clientInfo=GetUser($_GET['uid']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,61 +16,59 @@
 </head>
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php'); ?>
 <body>
-	<div class="container">
+	<div class="container bodycontent">
 		<div class="wrapper">
 			
-			<h3 class="row">Renseignements sur le client</h3>
+			<h2>Renseignements sur le client</h2>
 			<div id="infos_client" class="row">
 				<!-- recuperer l'id du client -->
-				<div class="client">
-					<!--  php renseignements pro à voir avec table membres admin=2 + formation achetee en formulaire -->
-					<?php 
-						require($_SERVER['DOCUMENT_ROOT'].'/php/config.php');
-						$query=$bdd->query('SELECT id_member, pseudo_member, firstName_member,lastName_member,residence_member,paypal_member,zipcode_member,city_member,mail_member FROM members WHERE id_member="'.$_GET['uid'].'"'); 
-						$clientInfo=$query->fetch();
-						?> <!-- recuperer les donnees du client avec l'id entré -->
+				<div class="col-md-12">
 					<form action="/php/usermanagement.php?uid=<?php echo($clientInfo['id_member'])?>&action=up" method="POST" id="formuserinfo">
-						<div class="form-group row">
-							<div class="col-md-6">
-								<label for="pseudo">Pseudo: </label><br />
-								<label for="firstname">First Name: </label><br />
-								<label for="lastname">Last Name: </label><br />
-								<label for="paypal">Paypal Adress: </label><br />
-								<label for="mail">Email: </label><br />
-								<label for="residence">Address: </label><br />
-								<label for="zipcode">Zipcode: </label><br />
-								<label for="city">City: </label>
+						<div class="form-group card">
+							<div class="row col-md-6">
+								<div class="col-md-6">
+									<label for="pseudo">Pseudo: </label><br />
+									<label for="firstname">First Name: </label><br />
+									<label for="lastname">Last Name: </label><br />
+									<label for="paypal">Paypal Adress: </label><br />
+									<label for="mail">Email: </label><br />
+									<label for="residence">Address: </label><br />
+									<label for="zipcode">Zipcode: </label><br />
+									<label for="city">City: </label><br />
+								</div>
+								<div class="col-md-6">
+									<input type="text" name="pseudo" value="<?php echo(($clientInfo['pseudo_member']))?>"><br />
+									<input type="text" name="firstname" value="<?php echo(($clientInfo['firstName_member']))?>"><br />
+									<input type="text" name="lastname" value="<?php echo(($clientInfo['lastName_member']))?>"><br />
+									<input type="text" name="paypal" value="<?php echo(($clientInfo['paypal_member']))?>"><br />
+									<input type="text" name="mail" value="<?php echo(($clientInfo['mail_member']))?>"><br />
+									<input type="text" name="residence" value="<?php echo(($clientInfo['residence_member']))?>"><br />
+									<input type="text" name="zipcode" value="<?php echo(($clientInfo['zipcode_member']))?>"><br />
+									<input type="text" name="city" value="<?php echo(($clientInfo['city_member']))?>"><br />
 							</div>
-							<div class="col-md-6">
-								<input type="text" name="pseudo" value="<?php echo(($clientInfo['pseudo_member']))?>"><br />
-								<input type="text" name="firstname" value="<?php echo(($clientInfo['firstName_member']))?>"><br />
-								<input type="text" name="lastname" value="<?php echo(($clientInfo['lastName_member']))?>"><br />
-								<input type="text" name="paypal" value="<?php echo(($clientInfo['paypal_member']))?>"><br />
-								<input type="text" name="mail" value="<?php echo(($clientInfo['mail_member']))?>"><br />
-								<input type="text" name="residence" value="<?php echo(($clientInfo['residence_member']))?>"><br />
-								<input type="text" name="zipcode" value="<?php echo(($clientInfo['zipcode_member']))?>"><br />
-								<input type="text" name="city" value="<?php echo(($clientInfo['city_member']))?>"><br />
+							<div class="row col-md-12">
+								<div class="col-md-4">
+								<!--TODO-->
+									<?php //echo ('<input type="submit" name="update" class="button" value="Sauvegarder"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?>
+									<button class="button" id="updateuser" onClick="updateuser">Update</button>
+								</div>
+								<div class="col-md-4">
+									<?php //echo ('<a href="/php/usermanagement.php?uid='.$clientInfo["id_member"].'&action=del"><input type="button" name="delete" class="button" value="Supprimer"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?>
+									<button class="button" id="deleteuser" onClick="deleteuser">Delete</button>
+								</div>
+								<!--TODO-->
+								<div class="col-md-4">
+									<?php //echo ('<a href="/php/usermanagement.php?uid='.$clientInfo["id_member"].'&action=res"><input type="button" name="delete" class="button" value="Reset pass"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?>
+									<button class="button" id="resetpass" onClick="resetpass">Reset password</button>
+								</div>
 							</div>
+							<div class="row col-md-12">
+								<div id="operationstatus"></div>
+							</div>
+
 						</div>
-						<div class="row">
-							<div class="col-md-4">
-							<!--TODO-->
-								<?php //echo ('<input type="submit" name="update" class="button" value="Sauvegarder"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?>
-								<button class="button" id="updateuser" onClick="updateuser">Update</button>
-							</div>
-							<div class="col-md-4">
-								<?php //echo ('<a href="/php/usermanagement.php?uid='.$clientInfo["id_member"].'&action=del"><input type="button" name="delete" class="button" value="Supprimer"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?>
-								<button class="button" id="deleteuser" onClick="deleteuser">Delete</button>
-							</div>
-							<!--TODO-->
-							<div class="col-md-4">
-								<?php //echo ('<a href="/php/usermanagement.php?uid='.$clientInfo["id_member"].'&action=res"><input type="button" name="delete" class="button" value="Reset pass"><!-- bouton supprimer --></a><!-- bouton suppression client -->');?>
-								<button class="button" id="resetpass" onClick="resetpass">Reset password</button>
-							</div>
 						</div>
-						<div class="row">
-							<div id="operationstatus"></div>
-						</div>
+						
 					</form>
 				</div>
 			

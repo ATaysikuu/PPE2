@@ -14,29 +14,44 @@ try {
         isset($_POST['fmail'])){ //user mail
         
         //array containing all the data the user has entered in the form
-        $insertData = [
-            'name'=>$_POST['fname'],
-            'surname'=>$_POST['fsurname'],
-            'residence'=>$_POST['fresidence'],
-            'paypal'=>$_POST['fpaypal'],
-            'regdate'=>date("Y-m-d"),
-            'pseudo'=>$_POST['fpseudo'],
-            'pass'=>$_POST['fpass'],
-            'admin'=>0,
-            'zipcode'=>$_POST['fzipcode'],
-            'city'=>$_POST['fcity'],
-            'email'=>$_POST['fmail'],
-            'statut'=>1
-        ];
-            //prepare the request that will insert the new user in the database
-            //$req=$bdd->prepare('INSERT INTO `members` (`pseudo_member`, `pass_member`, `name`, `surname`, `residence`, `zipcode`, `city`, `admin`) VALUES (:pseudo,:pass,:name,:surname,:residence,:zipcode,:city,:admin)');
-            //execute the request with the array
-            //$req->execute($insertData);
+        if(isset($_POST['fpro'])){
+            $insertData = [
+                'name'=>$_POST['fname'],
+                'surname'=>$_POST['fsurname'],
+                'residence'=>$_POST['fresidence'],
+                'paypal'=>$_POST['fpaypal'],
+                'regdate'=>date("Y-m-d"),
+                'pseudo'=>$_POST['fpseudo'],
+                'pass'=>$_POST['fpass'],
+                'role'=>1,
+                'zipcode'=>$_POST['fzipcode'],
+                'city'=>$_POST['fcity'],
+                'email'=>$_POST['fmail'],
+                'statut'=>0
+            ];
             AddUser($insertData);
+        }
+        else{
+            $insertData = [
+                'name'=>$_POST['fname'],
+                'surname'=>$_POST['fsurname'],
+                'residence'=>$_POST['fresidence'],
+                'paypal'=>$_POST['fpaypal'],
+                'regdate'=>date("Y-m-d"),
+                'pseudo'=>$_POST['fpseudo'],
+                'pass'=>$_POST['fpass'],
+                'role'=>2,
+                'zipcode'=>$_POST['fzipcode'],
+                'city'=>$_POST['fcity'],
+                'email'=>$_POST['fmail'],
+                'statut'=>1
+            ];
+            AddUser($insertData);
+        }
     }
     
 } catch (Exception $ex) {
 echo($ex);
 }
-header("Location: /");
+header("Location: /login.php");
        

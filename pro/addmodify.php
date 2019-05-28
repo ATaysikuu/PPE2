@@ -20,12 +20,13 @@
 </head>
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php') ?>
 <body>
-	<div class="container">
+	<div class="container bodycontent">
 		<div class="wrapper">
-			<div id="form_formation">
+			<h2 style="text-align: center">Ajouter une formation</h2>
+			<div id="form_formation"class="card">
 				<form id="formaddformation" method="POST" action="/php/addproduct_action.php">
 					<div class="form-group row">
-						<div class="col-md-3">
+						<div class="col-md-4">
 							<label for="title">Titre de la formation: </label><br />
 							<label for="price">Prix de la formation: </label><br />
 							<label for="categ">Catégorie de la formation: </label><br />
@@ -42,7 +43,7 @@
 							<textarea name="desc" rows="4" cols="50" placeholder="Description..."></textarea><br />
 						</div>
 					</div>
-					<input type="submit" value="Enregistrer">
+					<input class="button" type="submit" value="Enregistrer">
 				</form> 
 			</div>
 		</div><!-- wrapper-->

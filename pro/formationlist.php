@@ -20,34 +20,36 @@
 </head>
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php') ?>
 <body>
-	<div class="container">
+	<div class="container bodycontent">
 		<div class="wrapper">
-			<h2>Liste des formations du professionnel</h2>
-			<table>
-				<th colspan="4">Formations mises en ligne</th></tr>
-				<tr>
-					<td>Titre</td>
-					<td>Description</td>
-					<td>Date de mise en ligne</td>
-					<td>Prix</td>
-					<td>Validation</td>
-					<td>CONSULTER</td>
-				<tr>
+			<h2 style="text-align: center">Liste des formations mises en ligne</h2>
+			<div class="card">
 				<?php
-					foreach($courses as $formation){ //for each course in the returned array, print its name in html + buttons to accept or refuse course
+				foreach($courses as $formation){ //for each course in the returned array, print its name in html + buttons to accept or refuse course
 				?>
-				<tr>
-					<td><?php echo ($formation['name_article']);?></td>
-					<td><?php echo ($formation['description_article']);?></td>
-					<td><?php echo ($formation['date_article']);?></td>
-					<td><?php echo ($formation['price_article']);?></td>
-					<td><?php if($formation['validation']=="1")echo("Validée");else echo("En attente");?></td>
-					<td><?php echo ('<a href="/formation.php?id='.$formation["id_article"].'"><input type="button" name="consult" class="button" value="Consulter">');?></td>
-				</tr>
+					<div class="container formationpropreview">
+						<div class="row">
+							<span class="col-md-2"><h5>Titre</h5></span>
+							<span class="col-md-6"><h5>Description</h5></span>
+							<span class="col-md-2"><h5>Mise en ligne</h5></span>
+							<span class="col-md-2"><h5>Validation</h5></span>
+						</div>
+						<hr/>
+						<div class="row">
+							<span class="col-md-2"><?php echo ($formation['name_article']);?></span>
+							<span class="col-md-6"><?php echo ($formation['description_article']);?></span>
+							<span class="col-md-2"><?php echo ($formation['date_article']);?></span>
+							<span class="col-md-2"><?php if($formation['validation']=="1")echo("Validée");else echo("En attente");?></span>
+						</div>
+						<div class="row">
+							<span class="col-md-12" style="text-align: right !important"><?php echo ('<a href="/formation.php?id='.$formation["id_article"].'"><input type="button" name="consult" class="button" value="Consulter"></a>');?></span>
+						</div>
+					</div>
+					<hr/>
 				<?php
 					}
 				?>
-			</table>
+		</div>
 		</div>
 	</div>
 

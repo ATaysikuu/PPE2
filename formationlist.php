@@ -13,34 +13,34 @@
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php') ?>
 <body>
 	
-	<div class="container">
+	<div class="container bodycontent">
 		<div class="wrapper">
-			<h2>Liste des formations</h2>
-			<div id="listformation" class="row">
-                <div class="formationlist col-md-12">
-                    <ul>
-                            <table>
-                                <th colspan="4">Formations mises en ligne</th></tr>
-                                <tr>
-                                    <td>NOM</td>
-                                    <td>AUTEUR</td>
-                                    <td>CONSULTER</td>
-                                <tr>
-                                <?php
-                                    foreach($formationlistvalidated as $formation){ //for each course in the returned array, print its name in html + buttons to accept or refuse course
-                                ?>
-                                <tr>
-                                    <td><?php echo ($formation['name_article']);?></td>
-                                    <td><?php echo ($formation['pseudo_member']);?></td>
-                                    <td><?php echo ('<a href="/formation.php?id='.$formation["id_article"].'"><input type="button" name="consult" class="button" value="Consulter">');?></td>
-                                </tr>
-                                <?php
-                                    }
-                                ?>
-                            </table>
-                    </ul>
+			<h2 style="text-align: center">Liste des formations</h2>
+            <div id="listformation" class="row">
+                <div class="card">
+                    <div class="formationlist col-md-12">
+                        <div class="row">
+                            <h5 class="col-md-2">Titre</h5>
+                            <h5 class="col-md-8">Contenu</h5>
+                            <h5 class="col-md-2">Consulter</h5>
+                        </div>
+                        <hr/>
+                        <?php
+                            foreach($formationlistvalidated as $formation){ //for each course in the returned array, print its name in html + buttons to accept or refuse course
+                        ?>
+                        <div class="row formation_list_element">
+                            <h6 class="col-md-2"><?php echo ($formation['name_article']);?></h6>
+                            <p class="col-md-8"><?php echo ($formation['description_article']);?></p>
+                            <p class="col-md-2"><a href="/formation.php?id=<?php echo($formation['id_article'])?>"><input type="button" name="consult" class="button" value="Consulter"></a></p>
+                        </div>
+                        <hr />
+                        <?php
+                            }
+                        ?>
+                    </div>
                 </div>
-		</div>
+            </div>
+        </div>
 	</div>
 </body>
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/footer.php') ?>

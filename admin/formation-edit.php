@@ -21,7 +21,7 @@
 	<div class="container">
 		<div class="wrapper">
 			<form id="formeditformation" method="POST" action="/php/validationformation.php?id=<?php echo($courseData['id_article'])?>&action=update&list=0">
-				<div class="form-group row">
+				<div class="form-group row card">
 					<div class="col-md-6">
 						<label for="formationname">Nom de la formation: </label><br />
 						<label for="formationprice">Prix de la formation: </label><br />

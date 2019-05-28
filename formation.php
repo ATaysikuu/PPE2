@@ -4,6 +4,7 @@
 	if(isset($_GET['id'])&&isset($_SESSION['id'])){
 		$courseData=GetCourse($_GET['id']);
 		$uid=$_SESSION['id'];
+		$reviewlist=GetReviewsCourse($_GET['id']);
 	}
 	else header('Location: /');
 ?>
@@ -17,43 +18,84 @@
 </head>
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php') ?>
 <body>
-	<div class="container">
+	<div class="container bodycontent">
 		<div class="wrapper">
-			<div id="formation_title" class="row">
-				<h2><?php echo($courseData['name_article'])?></h2>
-				<h5>Auteur: <?php echo($courseData['pseudo_member']);?>
-			</div>
-			<div id="formation_content" class="row">
-				<h4>Contenu de la formation</h4><br/>
-				<p><?php echo($courseData['description_article'])?></p>
-			</div>
-			<div id="formation_date" class="row">
-				<p>Date de mise en ligne: <?php echo($courseData['date_article'])?></p>
-			</div>
-			<?php
-				if(UserRole($uid)!="2"){
-					echo('Veuillez vous connecter avec un compte client pour acheter ou visionner cette formation.');
-				}
-				else{
-					if(UserHasCourse($courseData['id_article'],$uid)){
-						echo('
-							PLACEHOLDER VIDEO
-						');
-					}
-					else {
-						echo("
-						<div id=\"formation_price\" class=\"row\">
-						<p>Prix: ".($courseData['price_article'])."</p>
+			<div class="row">
+				<div class="card">
+					<div class="row" id="formation_title">
+						<h2 class="col-md-12"><?php echo($courseData['name_article'])?></h2><br/>
+					</div>
+					<div class="row formation_author">
+						<h6 class="col-md-12">Auteur: <?php echo($courseData['pseudo_member']);?></h6>
+					</div>
+					
+					<?php
+						if(UserRole($uid)!="2" && $courseData['id_seller']!=$uid){
+							echo('Veuillez vous connecter avec un compte client pour acheter ou visionner cette formation.');
+						}
+						else{
+							if(UserHasCourse($courseData['id_article'],$uid) || $courseData['id_seller']==$uid){
+								?>
+									<div class="row">
+										<div class="video-container col-md-12">
+											<video controls class="bgvid">
+												<source src="/videos/<?php echo($_GET['id'])?>.mp4" type="video/mp4">
+											</video>
+										</div>
+									</div>
+								<?php
+							}
+							else {
+								?>
+									<div id="formation_price" class="row">
+										<p class="col-md-12">Prix: <?php echo ($courseData['price_article'])?>€</p>
+									</div>
+									<div class="row">
+										<span class="col-md-12"><button class="button" id="addtobasket" onClick="addtobasket()">Ajouter au panier</button></span>
+									</div>
+									<div id="operationstatus"></div>
+								<?php
+							}
+						}
+					?>
+					<div class="row" id="formation_content">
+						<h4 class="col-md-12">Contenu de la formation</h4><br/>
+					</div>
+					<div class="row" id="formation_description">
+						<p class="col-md-12"><?php echo($courseData['description_article'])?></p>
+					</div>
+					<?php 
+						if(UserHasCourse($courseData['id_article'],$uid)){
+							?>
+							<div class="row">
+								<div class="col-md-12">
+									<form action="/php/review.php?action=submit&courseid=<?php echo($courseData['id_article'])?>" method="POST">
+										<textarea rows="5" cols="60" name="fmessage" placeholder="Laissez votre avis sur la formation..."></textarea><br/>
+										<input type="submit" value="Soumettre" class="button">
+									</form>
+								</div>
+							</div>
+							<?php
+						}?>
+						
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card">
+								<?php foreach ($reviewlist as $review) {
+									?>
+										<h6><?php echo($review['pseudo_member'])?></h6>
+										<span><?php echo($review['review'])?></span>
+										<hr/>
+								<?php
+								}?>
+							</div>
 						</div>
-						<div class=\"row\">
-							<button id=\"addtobasket\" onClick=\"addtobasket()\">Add to basket</button>
-						</div>
-						<div id=\"operationstatus\"></div>
-						");
-					}
-				}
-				
-			?>
+					</div>
+					<div class="row" id="formation_date">
+						<p class="col-md-12" style="text-align: left !important;">Date de mise en ligne: <?php echo($courseData['date_article'])?></p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

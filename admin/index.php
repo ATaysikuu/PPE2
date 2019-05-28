@@ -16,26 +16,32 @@
 <?php require_once($_SERVER['DOCUMENT_ROOT']."/include/header.php"); ?>
 <body>
 
-	<div class="container">
+	<div class="container bodycontent">
 		<div class="wrapper">
 			<h2>Page connexion Administrateur</h2>
-			<span id="formation_list">
-				<a href="formationlist.php" target="_blank"><input type="button" class="list_button" value="Formations"> <!-- bouton cliquable qui redirige vers la page liste formations -->
-				
-				</button></a>
-			</span>
-
-			<span id="list_client">
-				<a href="clientlist.php" target="_blank"><input type="button" class="list_button" value="Clients"><!-- b_blank"><input type="button" class="list_button" value="Professionnels"><!-- bouton cliquable qui redirige vers la page liste professionnels -->
-				
-				
-				</button></a>
-			</span>
-
-			<span id="list_pro">
-				<a href="prolist.php" target="_blank"><input type="button" class="list_button" value="Professionnels"><!-- bouton cliquable qui redirige vers la page liste professionnels -->
-				</button></a>
-			</span>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="card" id="connexion">
+					<p>Consultez les formations proposées<br/></p>
+					<div class="clear"></div>
+					<a href="formationlist.php"><input type="button" name="mesformations" class="button" value="Formations"></a>
+					</div>  
+					</div>
+					<div class="col-md-4">
+					<div class="card" id="formations">
+						<p>Consultez la liste des clients</p><br/>
+						<div class="clear"></div>
+						<p><a href="clientlist.php"><input type="button" name="clients" class="button" value="Clients"></a></p>
+					</div>
+					</div>
+					<div class="col-md-4">
+					<div class="card" id="contact">
+						<p>Consultez la liste des professionnels</p><br/>
+						<div class="clear"></div>
+						<p><a href="prolist.php"><input type="button" name="pros" class="button" value="Professionnels"></a></p>
+					</div>  
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

@@ -9,9 +9,17 @@
 </head>
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php') ?>
 <body>
-	<div class="container">
+	<div class="container bodycontent">
 		<div class="wrapper">
-			<h2>Page Client</h2>
+			<h2>Profil</h2>
+			<div class="row">
+				<div class="col-md-6 card">
+
+				</div>
+				<div class="col-md-6 card">
+
+				</div>
+
 			<a href="../client/formation_nobuy.php" target="_blank"><input type="button" name="formation_list_buy" value="Formations non achetées"></a>
 					<!-- php mettre la liste des formations achetees par le client -->
 

@@ -15,6 +15,7 @@ switch($_REQUEST['action']){
         break;
     case "remove":
         RemoveFromBasket($courseID,$uid);
+        header("Location: /basket.php");
         break;
     case "confirm":
         BuyBasket($uid);

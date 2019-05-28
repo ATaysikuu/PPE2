@@ -1,26 +1,41 @@
+body{
+	background-color: #ccc !important;
+}
+h2{
+	text-align: center;
+}
 /*******************************************************/
 /************************* HEADER *********************/
 /********************************************************/
+
 #header{
 	z-index: 999;
-	position: absolute;
+	position: relative;
 	top:1%;
-	height: 152px;
+	height: 64px;
+	background-color: #66798a;
+	border: #66798a 1px solid;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	box-shadow: 2px 2px 3px #666;
 }
-.logo{
-	position: absolute;
-	top:1%;
-	left:1%; 	
-}
-#header .logo{
-	
-}
-#header .logo img{
-	width:60%;
+#logo img{
+	max-width: 64px;
 }
 #menu{
-	position:fixed;
-	right:10px;
+	float: right;
+	padding-top: 1%;
+}
+#menu a{
+	color: #000;
+}
+.bodycontent{
+	position: relative;
+	padding:1%;
+	border-radius: 2px;
+	box-shadow: 2px 2px 3px #666;
+	background-color: #ddd;
+
 }
 /**********************************************************/
 /************************* FIN HEADER *********************/
@@ -40,17 +55,12 @@
 
 /*********** PAGE ADMIN***********/
 /****index*****/
-.wrapper{
-	margin-top:13% !important; 
-	margin-left:10% !important;
-}
 
 
 #basket{
 	margin: auto;
 	width: 90%;
 	position: relative;
-	border:1px solid;
 	justify-content: center;
 }
 #basket td{
@@ -59,4 +69,51 @@
 	position: relative;
 	border:1px solid;
 	justify-content: center;
+}
+
+.video-container{
+	width: 100%;
+}
+.bgvid{
+	width: 100%;
+}
+
+
+.card{
+	background-color: #ddd;
+	border-radius: 2px;
+	box-shadow: 2px 2px 3px #666;
+	text-align: center;
+	padding: 1%;
+	margin:2%;
+}
+
+.roundishbox{
+	background-color: #fff !important;
+	border: 1px solid #eee;
+	border-radius: 2px;
+	display: flex;
+	align-content: justify;
+	padding: 1%;
+}
+.clear{
+	clear: both;
+}
+
+#formaddformation{
+	padding: 15px;
+}
+.formation_list_element{
+
+}
+.button{
+	background-color: aliceblue;
+	border: 1px solid #34495E;
+	color: #34495E;
+	border-radius: 2px;	
+}
+.button:hover{
+	background-color: #34495E;
+	color: white;
+	border-color: aliceblue;
 }

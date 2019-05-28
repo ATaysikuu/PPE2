@@ -16,35 +16,37 @@
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php') ?> <!-- rajout du header -->
 </header>
 	<body>
-	<div class="container">
+	<div class="container bodycontent">
 		<div class="wrapper">
-			<div class="row" id="basket">
-				<table>
-					<tr>
-						<th colspan="3">Contenu du panier</th></tr>
-					<tr>
-						<td>NOM</td>
-						<td>DESCRIPTION</td>
-						<td>PRIX</td>
-					<tr>
-					<?php
-						foreach($basketContent as $element){
-					?>
-					<tr>
-						<td><?php echo ($element['name_article']);?></td>
-						<td><?php echo ($element['description_article']);?></td>
-						<td><?php echo ($element['price_article']."€");?></td>
-						<td><a href="/php/basketmanagement.php?action=remove&courseid=<?php echo($element['id_article']);?>">Supprimer du panier</a>
-					</tr>
-					<?php
+			<h4 style="text-align:center;">Mon panier</h4>
+			<div class="row card" id="basket">
+				<div class="row col-md-12">
+					<h5 class="col-md-2">Nom</h5>
+					<h5 class="col-md-7">Description</h5>
+					<h5 class="col-md-3">Prix</h5>
+				</div>
+				<hr/>
+				<?php
+					foreach($basketContent as $element){
+				?>
+				<div class="row">
+					<h6 class="col-md-2"><?php echo ($element['name_article']);?></h6>
+					<p class="col-md-7"><?php echo ($element['description_article']);?></p>
+					<p class="col-md-1"><?php echo ($element['price_article']."€");?></p>
+					<p class="col-md-2"><a href="/php/basketmanagement.php?action=remove&courseid=<?php echo($element['id_article']);?>"><input class="button"type="button"value="Supprimer"></a></p>
+				</div>
+				<hr/>
+				<?php
 					$total+=$element['price_article'];
-						}
-					?>
-					<tr><td colspan="3">Prix Total: <?php echo ($total."€");?>
-					<tr>
-						<td><a href="/php/basketmanagement.php?action=empty" class="button">Vider le panier</a></td>
-						<td><a href="/php/basketmanagement.php?action=confirm" class="button">Valider le panier</a></td></tr>
-				</table>
+					}
+				?>
+				<div class="row col-md-12">
+					<p class="col-md-12">Prix Total: <?php echo ($total."€");?></p><br/>
+				</div>
+				<div class="row">
+					<p class="col-md-6"><a href="/php/basketmanagement.php?action=empty"><input type="button" class="button" value="Vider le panier"></a></p>
+					<p class="col-md-6"><a href="/php/basketmanagement.php?action=confirm"><input type="button" class="button" value="Valider le panier"></a></p>
+				</div>
 			</div>
 		</div>
 	</div>

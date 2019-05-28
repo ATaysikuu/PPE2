@@ -1,64 +1,108 @@
 <?php session_start();?>
-<?php include_once($_SERVER['DOCUMENT_ROOT'].'/php/config.php'); ?>
+<?php 
+    require_once($_SERVER['DOCUMENT_ROOT'].'/php/functions.php'); 
+?>
 <!DOCTYPE html>
 
 <html>
-<!-- a passer en local -->
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
-<meta name="viewport" content="width=320, initial-scale=1">
-
-<meta charset="utf-8">
-
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css"> 
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> 
 
 <head>
 	<meta charset="utf-8">
-	<title>Sell_IT_Accueil</title>
-	<script type="text/javascript" src="script.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Sell_IT_Accueil</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=320, initial-scale=1">
+    <script src="/js/jquery331.js"></script> 
 </head>
  <!-- a passer en local -->
  
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php'); ?>
 
 <body>
-    <div class="container">
+    <div class="container bodycontent">
         <div class="wrapper">
-              <?php
-                  if (isset($_SESSION['pseudo'])){
-                      echo($_SESSION['id']);
-                      echo($_SESSION['pseudo']);
-                      echo("
-                          <div class='logoutbutton'>
-                              <a href='/logout.php'>LOGOUT</a>
-                          </div>
-                      ");
-                  }
-                  else {
-                      echo("
-                          <div class='loginbutton'>
-                              <a href='/login.php'>LOGIN</a>
-                          </div>
-                      ");
-                  }
-              ?>
-            <div id="icones"> <!-- icones pour Professionnel et Client -->
-                
-                <a href="pro/index.php" target="_blank"><input type="button" value="Professionnel"></a>
-                <a href="client/index.php" target="_blank"><input type="button" value="Client"></a>
-                
+            <div class="row">
+                <?php 
+                    if(!isset($_SESSION['id'])){
+                        echo('
+                        <div class="col-md-4">
+                        <div class="card" id="connexion">
+                        <p>Connectez-vous pour accéder à vos formations.<br/></p>
+                        <div class="clear"></div>
+                        <a href="/login.php"><input type="button" name="connexion" class="button" value="Se connecter"></a>
+                        </div>
+                        </div>  
+                        <div class="col-md-4">
+                        <div class="card" id="formations">
+                            <p>Consultez les différentes formations proposées.</p><br/>
+                            <div class="clear"></div>
+                            <p><a href="/formationlist.php"><input type="button" name="formations" class="button" value="Formations"></a></p>
+                        </div>
+                        </div>
+                        <div class="col-md-4">
+                        <div class="card" id="contact">
+                            <p>Contactez-nous pour toute question.</p><br/>
+                            <div class="clear"></div>
+                            <p><a href="/contact.php"><input type="button" name="contact" class="button" value="Nous contacter"></a></p>
+                        </div> 
+                        </div> 
+                        ');
+                    }
+                    elseif (UserRole($_SESSION['id'])=="0") {
+                        header('Location: /admin/index.php');
+                    }
+                    elseif (UserRole($_SESSION['id'])=="1") {
+                        echo('
+                        <div class="col-md-4">
+                        <div class="card" id="connexion">
+                        <p>Consultez vos formations mises en ligne<br/></p>
+                        <div class="clear"></div>
+                        <a href="/pro/formationlist.php"><input type="button" name="mesformations" class="button" value="Mes formations"></a>
+                        </div>  
+                        </div>
+                        <div class="col-md-4">
+                        <div class="card" id="formations">
+                            <p>Consultez les différentes formations proposées.</p><br/>
+                            <div class="clear"></div>
+                            <p><a href="/formationlist.php"><input type="button" name="formations" class="button" value="Formations"></a></p>
+                        </div>
+                        </div>
+                        <div class="col-md-4">
+                        <div class="card" id="contact">
+                            <p>Contactez-nous pour toute question.</p><br/>
+                            <div class="clear"></div>
+                            <p><a href="/contact.php"><input type="button" name="contact" class="button" value="Nous contacter"></a></p>
+                        </div>  
+                        </div>
+                        ');
+                    }
+                    elseif (UserRole($_SESSION['id'])=="2") {
+                        echo('
+                        <div class="col-md-4">
+                        <div class="card" id="connexion">
+                        <p>Consultez vos formations<br/></p>
+                        <div class="clear"></div>
+                        <a href="/client/formationsclient.php"><input type="button" name="mesformations" class="button" value="Mes formations"></a>
+                        </div>  
+                        </div>
+                        <div class="col-md-4">
+                        <div class="card" id="formations">
+                            <p>Consultez les différentes formations proposées.</p><br/>
+                            <div class="clear"></div>
+                            <p><a href="/formationlist.php"><input type="button" name="formations" class="button" value="Formations"></a></p>
+                        </div>
+                        </div>
+                        <div class="col-md-4">
+                        <div class="card" id="contact">
+                            <p>Contactez-nous pour toute question.</p><br/>
+                            <div class="clear"></div>
+                            <p><a href="/contact.php"><input type="button" name="contact" class="button" value="Nous contacter"></a></p>
+                        </div>  
+                        </div>
+                        ');
+                    }
+                ?>
             </div>
-            
-            <a href="product.php?article=2">test</a>
         </div> <!-- wrapper-->
         
     

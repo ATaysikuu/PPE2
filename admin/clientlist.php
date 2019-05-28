@@ -17,62 +17,61 @@
 </head>
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/include/header.php') ?>
 <body>
-	<div class="container">
+	<div class="container bodycontent">
 		<div class="wrapper">
 			<h2>Liste des clients</h2>
 			<div id="listclient_manage" class="row">
-			
-				<div class="clientlist col-md-6">					
-					<table>
-							<th colspan="5">Clients actifs</th></tr>
-						<tr>
-							<td>Pseudo</td>
-							<td>Prénom</td>
-							<td>Nom</td>
-							<td>Désactiver</td>
-							<td>Modifier</td>
-						<tr>
+				<div class="clientlist col-md-6">		
+					<div class="card">	
+						<h5 style="text-align:center">Clients actifs</h5>
+						<hr/>
+						<div class="row">
+							<h6 class="col-md-4">Pseudo</h6>
+							<h6 class="col-md-4">Désactiver</h6>
+							<h6 class="col-md-4">Modifier</h6>
+						</div>
+						<hr/>
 						<?php
 							foreach($clientList as $client){ //for each client in the returned array, print its name in html + button to delete it
 						?>
-						<tr>
-							<td><?php echo ($client['pseudo_member']);?></td>
-							<td><?php echo ($client['firstName_member']);?></td>
-							<td><?php echo ($client['lastName_member']);?></td>
-							<td><?php echo ('<a href="/php/usermanagement.php?uid='.$client["id_member"].'&action=deactivate&list=1"><input type="button" name="delete" class="button" value="Désactiver"></a>');?></td>
-							<td><?php echo ('<a href="/admin/client.php?uid='.$client["id_member"].'"><input type="button" name="edit" class="button" value="Modifier"></a>');?></td>
-						</tr>
-						<?php
-							}
-						?>
-					</table>
-			</div>
-				<div class="clientlist col-md-6">					
-					<table>
-							<th colspan="5">Clients inactifs</th></tr>
-						<tr>
-							<td>Pseudo</td>
-							<td>Prénom</td>
-							<td>Nom</td>
-							<td>Activer</td>
-							<td>Modifier</td>
-							<td>Suppression définitive</td>
-						<tr>
+							<div class="row">
+								<span class="col-md-4"><?php echo ($client['pseudo_member']);?></span>
+								<span class="col-md-4"><?php echo ('<a href="/php/usermanagement.php?uid='.$client["id_member"].'&action=deactivate&list=1"><input type="button" name="delete" class="button" value="Désactiver"></a>');?></span>
+								<span class="col-md-4"><?php echo ('<a href="/admin/client.php?uid='.$client["id_member"].'"><input type="button" name="edit" class="button" value="Modifier"></a>');?></span>
+							</div>
+							<hr/>
+							<?php
+								}
+							?>
+						</table>
+					</div>
+				</div>
+				<div class="clientlist col-md-6">	
+					<div class="card">	
+						<h5 style="text-align:center">Clients actifs</h5>
+						<hr/>	
+						<div class="row">
+							<h6 class="col-md-3">Pseudo</h6>
+							<h6 class="col-md-3">Activer</h6>
+							<h6 class="col-md-3">Modifier</h6>
+							<h6 class="col-md-3">Supprimer</h6>
+						</div>	
+						<hr/>	
 						<?php
 							foreach($inactiveClientList as $client){ //for each client in the returned array, print its name in html + button to delete it
 						?>
-						<tr>
-							<td><?php echo ($client['pseudo_member']);?></td>
-							<td><?php echo ($client['firstName_member']);?></td>
-							<td><?php echo ($client['lastName_member']);?></td>
-							<td><?php echo ('<a href="/php/usermanagement.php?uid='.$client["id_member"].'&action=reactivate&list=1"><input type="button" name="reactivate" class="button" value="Réactiver"></a>');?></td>
-							<td><?php echo ('<a href="/php/usermanagement.php?uid='.$client["id_member"].'&action=delete&list=1"><input type="button" name="delete" class="button" value="Supprimer"></a>');?></td>
-							<td><?php echo ('<a href="/admin/client.php?uid='.$client["id_member"].'"><input type="button" name="edit" class="button" value="Modifier"></a>');?></td>
-						</tr>
-						<?php
-							}
-						?>
-					</table>
+							<div class="row">
+								<span class="col-md-3"><?php echo ($client['pseudo_member']);?></span>
+								<span class="col-md-3"><?php echo ('<a href="/php/usermanagement.php?uid='.$client["id_member"].'&action=reactivate&list=1"><input type="button" name="reactivate" class="button" value="Réactiver"></a>');?></span>
+								<span class="col-md-3"><?php echo ('<a href="/admin/client.php?uid='.$client["id_member"].'"><input type="button" name="edit" class="button" value="Modifier"></a>');?></span>
+								<span class="col-md-3"><?php echo ('<a href="/php/usermanagement.php?uid='.$client["id_member"].'&action=delete&list=1"><input type="button" name="delete" class="button" value="Supprimer"></a>');?></span>
+							</div>
+							<hr/>
+							<?php
+								}
+							?>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

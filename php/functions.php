@@ -11,7 +11,20 @@
         $req=$bdd->prepare('INSERT INTO `members` (`firstName_member`, `lastName_member`, `residence_member`, `paypal_member`, `registrationDate_member`, `pseudo_member`, `password`, `role`, `zipcode_member`, `city_member`, `mail_member`, `statut`) 
                                         VALUES (:name,:surname,:residence,:paypal,:regdate,:pseudo,:pass,:role,:zipcode,:city,:email,:statut)');
         //execute the request with the array
-        $req->execute($userData);
+        if(!CheckDuplicateUserPseudo($userData['pseudo'])){
+            $req->execute($userData);
+        }
+    }
+    //checks if the user's pseudo is already in the members table
+    function CheckDuplicateUserPseudo($userPseudo){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->prepare('SELECT COUNT(*) FROM members WHERE pseudo_member=:pseudo');
+        $req->execute(array('pseudo'=>$userPseudo));
+        $result=$req->fetch();
+        if($result[0]!='0'){
+            return true;
+        }
+        return false;
     }
     //updates the user info in the database with the array given (userData)
     function UpdateUser($uid, $userData){
@@ -99,8 +112,6 @@
     
         return $result;
     }
-
-
     //return the requested user
     function GetUser($uid){
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
@@ -181,7 +192,7 @@
      //returns the requested course. Validated or not.
      function GetCourse($idcourse){
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
-        $req=$bdd->prepare('SELECT DISTINCT articles.id_article, articles.name_article, articles.date_article, articles.description_article, articles.price_article, members.pseudo_member 
+        $req=$bdd->prepare('SELECT DISTINCT articles.id_seller, articles.id_article, articles.name_article, articles.date_article, articles.description_article, articles.price_article, members.pseudo_member 
                             FROM `articles` INNER JOIN members ON articles.id_seller=members.id_member WHERE articles.id_article=:idformation'); //get the requested course
         $req->execute(array('idformation'=>$idcourse));
         $result=$req->fetch();
@@ -190,7 +201,7 @@
      //returns an array containing the courses bought by the user
      function GetCoursesUser($uid){
         require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
-        $req=$bdd->prepare('SELECT DISTINCT articles.id_article, articles.name_article, articles.description_article FROM articles INNER JOIN soldarticles on soldarticles.id_article=articles.id_article INNER JOIN members WHERE soldarticles.id_buyer=:uid');
+        $req=$bdd->prepare('SELECT DISTINCT articles.id_article, articles.name_article, articles.description_article, articles.validation FROM articles INNER JOIN soldarticles on soldarticles.id_article=articles.id_article INNER JOIN members WHERE soldarticles.id_buyer=:uid');
         $req->execute(array('uid'=>$uid));
         $result=$req->fetchAll();
         return $result;
@@ -311,9 +322,9 @@
         return $result;
      }
      
-     /********************/
-     /* ORDERS MANAGEMENT*/
-     /********************/
+     /*********************/
+     /* ORDERS MANAGEMENT */
+     /*********************/
 
      //Add the course to the user's order history
      function AddToOrderHistory($courseID, $uid){
@@ -341,5 +352,62 @@
             AddToSoldArticles($element['id_article'],$uid);
             RemoveFromBasket($element['id_article'],$uid);
         }
+     }
+
+
+
+     //Add a review to the database
+     function AddReview($courseID,$uid, $message){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->prepare('INSERT INTO reviews(id_article, review, id_buyer) VALUES(:courseid, :message, :uid)');
+        $req->execute(array(
+            'courseid'=>$courseID,
+            'message'=>$message,
+            'uid'=>$uid
+        ));
+     }
+     //Get all reviews corresponding to the course
+     function GetReviewsCourse($courseID){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->prepare('SELECT DISTINCT * FROM reviews JOIN members ON members.id_member=reviews.id_buyer JOIN articles on reviews.id_article=articles.id_article WHERE reviews.id_article=:courseid');
+        $req->execute(array('courseid'=>$courseID));
+        $result=$req->fetchAll();
+        return $result;
+     }
+
+
+
+
+     //add a message received form the contact form to the database
+     function NewContactMessage($contactData){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->prepare('INSERT INTO contact(firstname_contact, lastname_contact, email_contact, message_contact, answered) VALUES(:firstname, :lastname, :email, :message, :answered)');
+        $req->execute(array(
+            'firstname'=>$contactData['name'],
+            'lastname'=>$contactData['surname'],
+            'email'=>$contactData['email'],
+            'message'=>$contactData['message'],
+            'answered'=>0
+        ));
+     }
+     //returns an array containing all messages received from the contact form
+     function GetAllContact(){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->prepare('SELECT * FROM contact');
+        $req->execute();
+        $result=$req->fetchAll();
+        return $result;
+     }
+     //set the message's status to answered 
+     function SetContactAnswered($id){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->prepare('UPDATE contact SET answered=1 WHERE id_contact="'.$id.'"');
+        $req->execute();
+     }
+     //remove the message from the database
+     function RemoveContact($id){
+        require($_SERVER['DOCUMENT_ROOT']."/php/config.php");
+        $req=$bdd->prepare('DELETE FROM contact WHERE id_contact="'.$id.'"');
+        $req->execute();
      }
 ?>
